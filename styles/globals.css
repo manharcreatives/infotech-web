@@ -1,0 +1,342 @@
+@import 'tailwindcss';
+
+/* ---------------------------------- */
+/* Fonts — Clash Display (display) + Satoshi (body), variable */
+/* ---------------------------------- */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+/* ---------------------------------- */
+/* Design tokens — Infotech Placements Purple Brand System */
+/* ---------------------------------- */
+@theme {
+  --color-brand: #B14EFF;
+  --color-brand-hover: #D56CFF;
+  --color-glow: #FF8DEB;
+  --color-deep: #6F28B9;
+  --color-ink: #09060F;
+  --color-ink-2: #120A1A;
+  --color-surface: #1A1027;
+  --color-line: #37204D;
+  --color-line-2: #241536;
+  --color-fg: #F8F7FB;
+  --color-fg-2: #CFC8DD;
+  --color-fg-3: #8C859C;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --font-display: 'Clash Display', 'Satoshi', sans-serif;
+  --font-sans: 'Satoshi', system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 38s linear infinite;
+  --animate-marquee-fast: marquee 22s linear infinite;
+  --animate-marquee-fast-reverse: marquee-reverse 20s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes marquee-reverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+}
+
+/* ---------------------------------- */
+/* Gradient System */
+/* ---------------------------------- */
+:root {
+  --gradient-primary: linear-gradient(135deg, #B14EFF, #D56CFF, #FF8DEB);
+  --gradient-dark: linear-gradient(180deg, #09060F, #120A1A, #1A1027);
+  --gradient-glow: linear-gradient(135deg, #D56CFF, #FF8DEB);
+  --gradient-logo-top: linear-gradient(180deg, #FF9AF2, #D56CFF);
+  --gradient-logo-front: linear-gradient(180deg, #C75DFF, #A63FFF);
+  --gradient-logo-right: linear-gradient(180deg, #8E2FE5, #6521A8);
+  --gradient-logo-inner: linear-gradient(180deg, #3D1B63, #241036);
+  --gradient-logo-shadow: #12061E;
+  --gradient-logo-highlight: #FFF2FF;
+}
+
+/* ---------------------------------- */
+/* Base */
+/* ---------------------------------- */
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 8px;
+  border: 2px solid var(--color-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------- */
+/* Utilities */
+/* ---------------------------------- */
+
+/* Film grain — disabled for clean design */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -150%;
+  z-index: 250;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 3%); }
+  50% { transform: translate(3%, -2%); }
+  75% { transform: translate(-3%, -3%); }
+  100% { transform: translate(2%, 2%); }
+}
+
+/* Purple grid lines */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(55 32 77 / 0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(55 32 77 / 0.28) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Glass surface */
+.glass {
+  background: rgb(26 16 39 / 0.42);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgb(55 32 77 / 0.7);
+}
+
+/* Gradient text utility */
+.text-gradient-brand {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-glow {
+  background: var(--gradient-glow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hollow display type */
+.text-stroke {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 141 235 / 0.45);
+}
+
+/* Spotlight card — cursor-tracked purple glow */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(213 108 255 / 0.16),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out-expo);
+  pointer-events: none;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(255 141 235 / 0.7),
+    transparent 65%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out-expo);
+  pointer-events: none;
+}
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* Masked line reveal container */
+.line-mask {
+  overflow: hidden;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+/* Link underline sweep */
+.link-sweep {
+  position: relative;
+}
+.link-sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.link-sweep:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Marquee track pairs */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+.marquee-track.reverse {
+  animation: var(--animate-marquee-reverse);
+}
+.marquee-track.marquee-fast {
+  animation: var(--animate-marquee-fast);
+}
+.marquee-track.marquee-fast-reverse {
+  animation: var(--animate-marquee-fast-reverse);
+}
+.marquee-paused:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Drifting dashes on illustration connectors */
+.mg-dash {
+  animation: mg-dash-drift 1.6s linear infinite;
+}
+@keyframes mg-dash-drift {
+  to { stroke-dashoffset: -12; }
+}
+
+/* Purple ambient orb — removed for clean design */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------- */
+/* Benefit section + VideoPin */
+/* ---------------------------------- */
+.benefits-section .vd-pin .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* ---------------------------------- */
+/* Hero-style video overlay headings   */
+/* ---------------------------------- */
+.special-font b {
+  background: linear-gradient(135deg, #B14EFF, #D56CFF, #FF8DEB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-feature-settings: "ss01" on;
+}
+
+.hero-heading {
+  font-size: clamp(2rem, 8vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
