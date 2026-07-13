@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { processSteps } from '@/content/site'
 import { SplitLines } from '@/components/motion/SplitLines'
@@ -106,9 +107,11 @@ export function ProcessHorizontal() {
     <section ref={ref} className="relative overflow-hidden bg-ink">
       {/* Atmospheric backdrop */}
       <div aria-hidden="true" className="absolute inset-0">
-        <img
+        <Image
           src="/images/sections/bg-method.png"
           alt=""
+          fill
+          unoptimized
           loading="lazy"
           className="size-full object-cover"
         />
@@ -140,9 +143,22 @@ export function ProcessHorizontal() {
               key={step.number}
               className="process-card relative flex min-h-[22rem] shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-line bg-surface/50 p-8 md:h-[52vh] md:w-[38vw] md:min-w-[26rem]"
             >
+              {/* Light-theme editorial photo per step; bottom scrim keeps
+                  the copy legible while the brighter upper image reads
+                  distinct from the dark surrounding sections. */}
+              <Image
+                src={`/images/method/method-${step.number}.webp`}
+                alt=""
+                fill
+                unoptimized
+                aria-hidden="true"
+                loading="lazy"
+                className="absolute inset-0 size-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/20" />
               <span
                 aria-hidden="true"
-                className="process-number text-stroke pointer-events-none absolute -top-8 right-2 font-display text-[9rem] font-bold leading-none md:text-[12rem]"
+                className="process-number text-stroke pointer-events-none absolute -top-8 right-2 z-[1] font-display text-[9rem] font-bold leading-none md:text-[12rem]"
               >
                 {step.number}
               </span>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { PageHero } from '@/components/layout/PageHero'
 import { TransitionLink } from '@/components/ui/TransitionLink'
 import { CTASection } from '@/components/sections/home/CTASection'
@@ -36,9 +37,11 @@ export default function BlogIndexPage() {
               className="group flex flex-col overflow-hidden border border-line bg-surface/40 transition-colors duration-500 hover:border-glow/40"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand/25 via-ink to-glow/10">
-                <img
+                <Image
                   src={`/images/blog/${post.slug}.png`}
                   alt={`${post.title} — featured illustration`}
+                  fill
+                  unoptimized
                   loading="lazy"
                   className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

@@ -22,7 +22,7 @@ export default function AboutPage() {
       <PageHero
         index="01"
         eyebrow="Who we are"
-        bgImage="/images/sections/bg-hero-about.png"
+        bgImage="/images/heroes/hero-about.webp"
         title={
           <>
             We don&rsquo;t fill vacancies.

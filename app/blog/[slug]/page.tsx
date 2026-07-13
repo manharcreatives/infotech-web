@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { TransitionLink } from '@/components/ui/TransitionLink'
 import { Button } from '@/components/ui/Button'
@@ -71,9 +72,11 @@ export default async function BlogPostPage({
         {/* Featured image (ChatGPT-generated, brand palette) */}
         <div className="mx-auto mt-10 w-[min(94%,64rem)]">
           <div className="relative aspect-[16/7] overflow-hidden border border-line bg-gradient-to-br from-brand/25 via-ink-2 to-glow/10">
-            <img
+            <Image
               src={`/images/blog/${post.slug}.png`}
               alt={`${post.title} — featured illustration`}
+              fill
+              unoptimized
               className="absolute inset-0 size-full object-cover"
             />
           </div>

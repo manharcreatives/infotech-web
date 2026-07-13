@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap'
 import { candidateJourney } from '@/content/site'
 import { SplitLines } from '@/components/motion/SplitLines'
@@ -189,20 +190,21 @@ export function JourneyScroll() {
                       active === i ? 'scale-100 opacity-100' : 'scale-[1.04] opacity-0'
                     }`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-deep/25 via-transparent to-brand/15" />
-                    <div className="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black_30%,transparent_80%)]" />
+                    <Image
+                      src={`/images/journey/step-${String(i + 1).padStart(2, '0')}.webp`}
+                      alt=""
+                      fill
+                      unoptimized
+                      loading="lazy"
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-deep/25 via-transparent to-ink/25" />
                     <span
                       aria-hidden="true"
                       className="text-stroke absolute -bottom-6 -right-4 font-display text-[8rem] font-bold leading-none opacity-70"
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    {/* ↓ replace this placeholder with the step's SVG illustration */}
-                    <figcaption className="absolute inset-0 grid place-items-center">
-                      <p className="rounded-full border border-dashed border-line px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-fg-3">
-                        Step art — coming soon
-                      </p>
-                    </figcaption>
                   </figure>
                 ))}
               </div>
@@ -299,18 +301,21 @@ export function JourneyScroll() {
 
                     {/* inline visual on mobile — same frame the stage shows on desktop */}
                     <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-xl border border-line bg-surface/40 md:hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-deep/25 via-transparent to-brand/15" />
+                      <Image
+                        src={`/images/journey/step-${String(i + 1).padStart(2, '0')}.webp`}
+                        alt=""
+                        fill
+                        unoptimized
+                        loading="lazy"
+                        className="absolute inset-0 size-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-deep/25 via-transparent to-ink/25" />
                       <span
                         aria-hidden="true"
                         className="text-stroke absolute -bottom-4 -right-2 font-display text-[5rem] font-bold leading-none opacity-70"
                       >
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <div className="absolute inset-0 grid place-items-center">
-                        <p className="rounded-full border border-dashed border-line px-3 py-1 text-[9px] uppercase tracking-[0.3em] text-fg-3">
-                          Step art — coming soon
-                        </p>
-                      </div>
                     </div>
                   </div>
                 </div>

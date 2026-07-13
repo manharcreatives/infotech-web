@@ -17,6 +17,7 @@ export default function ProcessPage() {
       <PageHero
         index="03"
         eyebrow="The Method"
+        bgImage="/images/heroes/hero-process.webp"
         title={
           <>
             Eleven steps.

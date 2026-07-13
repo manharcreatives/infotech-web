@@ -112,7 +112,6 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         duration: 0.6,
         ease: 'power3.inOut',
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   return (

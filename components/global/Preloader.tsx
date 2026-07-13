@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { getLenis } from '@/lib/scroll'
 import { markPreloaderPending, markPreloaderDone, isPreloaderDone } from '@/lib/preloader'
@@ -99,10 +100,12 @@ export function Preloader() {
 
       <div className="pre-fade absolute inset-0 flex items-center justify-center">
         <div className="relative" style={{ perspective: 800 }}>
-          <img
+          <Image
             src="/logo.svg"
             alt=""
             aria-hidden="true"
+            width={208}
+            height={0}
             className="pre-logo relative z-10 w-40 sm:w-52"
           />
           <div className="pre-glow pointer-events-none absolute inset-0 overflow-hidden">

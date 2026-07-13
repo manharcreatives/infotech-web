@@ -19,7 +19,7 @@ export default function ContactPage() {
       <PageHero
         index="06"
         eyebrow="Contact Us"
-        bgImage="/images/sections/bg-hero-contact.png"
+        bgImage="/images/heroes/hero-contact.webp"
         title={
           <>
             Whatever the hour,

@@ -18,6 +18,7 @@ export default function ServicesPage() {
       <PageHero
         index="02"
         eyebrow="Services"
+        bgImage="/images/heroes/hero-services.webp"
         title={
           <>
             Everything between you

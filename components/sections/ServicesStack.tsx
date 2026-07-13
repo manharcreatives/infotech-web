@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { candidateServices } from '@/content/site'
@@ -161,20 +162,23 @@ export function ServicesStack() {
                   </div>
                 </div>
 
-                {/* media placeholder — final artwork to be supplied */}
+                {/* per-service visual */}
                 <div className="relative hidden aspect-[4/5] max-h-[62svh] overflow-hidden rounded-2xl border border-line bg-surface/40 md:block">
-                  <div className="absolute inset-0 bg-gradient-to-br from-deep/30 via-transparent to-brand/15" />
+                  <Image
+                    src={`/images/services/service-${String(i + 1).padStart(2, '0')}.webp`}
+                    alt=""
+                    fill
+                    unoptimized
+                    loading="lazy"
+                    className="absolute inset-0 size-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-deep/25 via-transparent to-ink/30" />
                   <span
                     aria-hidden="true"
                     className="text-stroke absolute -right-6 -bottom-8 font-display text-[10rem] font-bold leading-none opacity-60"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <div className="absolute inset-0 grid place-items-center">
-                    <p className="rounded-full border border-dashed border-line px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-fg-3">
-                      Visual — coming soon
-                    </p>
-                  </div>
                 </div>
               </div>
 

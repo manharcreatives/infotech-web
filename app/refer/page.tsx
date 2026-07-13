@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { PageHero } from '@/components/layout/PageHero'
 import { SplitLines } from '@/components/motion/SplitLines'
 import { SpotlightCard } from '@/components/motion/SpotlightCard'
@@ -42,6 +43,7 @@ export default function ReferPage() {
       <PageHero
         index="07"
         eyebrow="Refer & Earn"
+        bgImage="/images/heroes/hero-refer.webp"
         title={
           <>
             Refer. Support.
@@ -93,8 +95,19 @@ export default function ReferPage() {
       </section>
 
       {/* Referral form */}
-      <section id="referral-form" className="bg-ink py-24 md:py-32">
-        <div className="mx-auto grid w-[min(94%,80rem)] gap-14 md:grid-cols-[1fr_1.3fr] md:gap-20">
+      <section id="referral-form" className="relative overflow-hidden bg-ink py-24 md:py-32">
+        <div aria-hidden="true" className="absolute inset-0">
+          <Image
+            src="/images/sections/refer-form-bg.webp"
+            alt=""
+            fill
+            unoptimized
+            loading="lazy"
+            className="size-full object-cover"
+          />
+          <div className="absolute inset-0 bg-ink/85" />
+        </div>
+        <div className="relative z-10 mx-auto grid w-[min(94%,80rem)] gap-14 md:grid-cols-[1fr_1.3fr] md:gap-20">
           <div>
             <SplitLines as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
               ( Make the introduction )

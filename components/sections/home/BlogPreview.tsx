@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { blogPosts } from '@/content/blog'
 import { TransitionLink } from '@/components/ui/TransitionLink'
@@ -61,9 +62,11 @@ export function BlogPreview() {
               className="blog-card group flex flex-col overflow-hidden border border-line bg-surface/40 transition-colors duration-500 hover:border-glow/40"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand/25 via-ink-2 to-glow/10">
-                <img
+                <Image
                   src={`/images/blog/${post.slug}.png`}
                   alt={`${post.title} — featured illustration`}
+                  fill
+                  unoptimized
                   loading="lazy"
                   className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

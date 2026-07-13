@@ -36,10 +36,10 @@ export function VideoExpandReveal({
   const outerRef = useRef<HTMLDivElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
   const onUpdateRef = useRef(onScrollUpdate)
-  onUpdateRef.current = onScrollUpdate
 
   useGSAP(
     () => {
+      onUpdateRef.current = onScrollUpdate
       const outer = outerRef.current
       const box = boxRef.current
       if (!outer || !box) return

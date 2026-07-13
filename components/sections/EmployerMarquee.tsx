@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { ClipRevealText } from '@/components/motion/ClipRevealText'
 
 /**
@@ -46,11 +47,13 @@ function LogoPill({ name, logo }: { name: string; logo: string }) {
     >
       {/* white coin keeps true brand colors legible on the dark theme */}
       <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full bg-white p-1.5">
-        <img
+        <Image
           src={`/images/employers/${logo}.png`}
           alt={`${name} logo`}
+          width={36}
+          height={36}
+          unoptimized
           className="max-h-full max-w-full object-contain"
-          loading="lazy"
         />
       </span>
       <span className="text-sm font-medium tracking-tight text-fg-2 transition-colors duration-300 group-hover/logo:text-fg">

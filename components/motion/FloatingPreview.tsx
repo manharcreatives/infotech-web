@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import { cn } from '@/lib/utils'
 
@@ -99,9 +100,11 @@ export function FloatingPreview({
             height: size.height,
           }}
         >
-          <img
+          <Image
             src={src}
             alt="Preview"
+            fill
+            unoptimized
             className="h-full w-full object-cover"
             draggable={false}
           />

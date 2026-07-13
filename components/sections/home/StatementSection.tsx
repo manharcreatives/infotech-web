@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { statement } from '@/content/site'
 import { WordColorReveal } from '@/components/motion/WordColorReveal'
@@ -36,10 +37,12 @@ export function StatementSection() {
           left with the existing clip-path scrub (image reveals as you scroll;
           inherits the section's motion + reduced-motion behavior) */}
       <div className="statement-sweep absolute inset-0 bg-gradient-to-r from-brand/8 to-transparent">
-        <img
+        <Image
           src="/images/sections/philosophy-bg.png"
           alt=""
           aria-hidden="true"
+          fill
+          unoptimized
           loading="lazy"
           className="absolute inset-0 size-full object-cover opacity-[0.18]"
         />

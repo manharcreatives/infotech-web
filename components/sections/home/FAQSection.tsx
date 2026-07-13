@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { faqs, faqCategories } from '@/content/site'
 import { cn } from '@/lib/utils'
 import { SplitLines } from '@/components/motion/SplitLines'
@@ -19,8 +20,22 @@ export function FAQSection() {
     <section className="relative bg-ink-2 py-28 md:py-40" id="faq">
       <div className="mx-auto grid w-[min(94%,80rem)] gap-14 md:grid-cols-[1fr_1.6fr]">
         {/* ── Left rail (sticky) ── */}
-        <div>
-          <div className="md:sticky md:top-32">
+        <div className="relative">
+          {/* artistic backdrop for the heading side only (not the Q&A) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-4 -inset-y-6 overflow-hidden rounded-3xl md:-inset-x-8"
+          >
+            <Image
+              src="/images/sections/faq-bg.webp"
+              alt=""
+              fill
+              unoptimized
+              className="size-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-ink-2/70 via-ink-2/80 to-ink-2" />
+          </div>
+          <div className="relative md:sticky md:top-32">
             <SplitLines as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
               ( 06 — Questions )
             </SplitLines>

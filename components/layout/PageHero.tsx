@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, type ReactNode } from 'react'
+import Image from 'next/image'
 import { gsap, SplitText, useGSAP } from '@/lib/gsap'
 import { ScrambleText } from '@/components/motion/ScrambleText'
 import { CinematicMask } from '@/components/motion/CinematicMask'
@@ -68,13 +69,19 @@ export function PageHero({
     >
       {bgImage ? (
         <>
-          <img
+          <Image
             src={bgImage}
             alt=""
             aria-hidden="true"
+            fill
+            unoptimized
             className="absolute inset-0 size-full object-cover"
           />
-          <div className="absolute inset-0 bg-ink/70" />
+          {/* Legibility scrim: darker on the left where the title sits,
+              lighter on the right so the (intentionally lighter) hero
+              image still reads through instead of going fully dark. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/72 to-ink/38" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/30" />
         </>
       ) : null}
       <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black_30%,transparent_75%)]" />

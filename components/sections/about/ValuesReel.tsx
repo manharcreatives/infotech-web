@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { coreValues } from '@/content/site'
 
@@ -86,6 +87,27 @@ export function ValuesReel() {
     <section ref={ref} className="relative bg-ink-2">
       {/* ── Desktop: pinned reel ── */}
       <div className="vr-stage relative hidden h-svh overflow-hidden md:block">
+        {/* full-screen artistic backdrop that swaps with the active value */}
+        {coreValues.map((cv, i) => (
+          <div
+            key={cv.title}
+            aria-hidden="true"
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              active === i ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Image
+              src={`/images/values/value-${String(i + 1).padStart(2, '0')}.webp`}
+              alt=""
+              fill
+              unoptimized
+              className="size-full object-cover"
+            />
+          </div>
+        ))}
+        {/* legibility scrim: darker toward the left rail where the copy sits */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink-2 via-ink-2/85 to-ink-2/55" />
+
         {/* giant watermark of the current value */}
         <span
           ref={markRef}
