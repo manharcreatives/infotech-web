@@ -6,15 +6,15 @@ import { heroWords, trustedRoles } from '@/content/site'
 import { Button } from '@/components/ui/Button'
 import { ScrambleText } from '@/components/motion/ScrambleText'
 import { CinematicMask } from '@/components/motion/CinematicMask'
-import { onPreloaderReady, isPreloaderDone } from '@/lib/preloader'
+import { onPreloaderReady } from '@/lib/preloader'
 
 /**
  * Full-viewport hero. Choreography:
- * 1. Content starts hidden. After preloader curtains part, CinematicMask
- *    expands (bubble reveal), then headline lines rise, rotating word cycles,
- *    CTAs and ticker fade in.
- * 2. On scroll the hero stays pinned while content drifts up, scales down
- *    and fades out (no blur).
+ * 1. CinematicMask covers the full section on mount (sits behind the
+ *    preloader at z-20). After preloader curtains part the mask shrinks
+ *    (iris opening) to reveal the hero from the centre outward, while
+ *    headline lines rise, rotating word cycles, CTAs and ticker fade in.
+ * 2. On scroll the hero content drifts up, scales down and fades out.
  */
 export function HeroSection() {
   const rootRef = useRef<HTMLElement>(null)
@@ -23,23 +23,12 @@ export function HeroSection() {
   useGSAP(
     () => {
       const heroContent = rootRef.current!.querySelector('.hero-content') as HTMLElement
-      if (heroContent && !isPreloaderDone()) {
-        gsap.set(heroContent, { autoAlpha: 0 })
-      }
 
       let intervalId: ReturnType<typeof setInterval> | undefined
 
-      /* --- Entrance: waits for the real preloader completion instead of
-         guessing its duration, so it can never drift out of sync. When the
-         preloader never ran (returning visit), fire almost immediately with
-         a small polish buffer instead of popping in instantly. --- */
-      const wasAlreadyDone = isPreloaderDone()
-      const settleDelay = wasAlreadyDone ? 0.35 : 0
+      /* --- Entrance: waits for the preloader to finish (or fires
+         immediately on inner pages where no preloader is mounted). --- */
       const unsubscribe = onPreloaderReady(() => {
-        if (heroContent) {
-          gsap.to(heroContent, { autoAlpha: 1, duration: 0.8, ease: 'power2.out', delay: settleDelay })
-        }
-
         /* --- Entrance --- */
         /* (The old post-reveal title re-scramble is gone on purpose: it
            rewrote the headline's DOM — destroying the gradient span on
@@ -52,7 +41,7 @@ export function HeroSection() {
            runs asynchronously off the preloader-ready event, outside the
            synchronous window where useGSAP's scope-selector proxying
            applies — a plain '.hero-fade' string would otherwise miss. */
-        const tl = gsap.timeline({ delay: settleDelay })
+        const tl = gsap.timeline()
         tl.from(split.lines, {
           yPercent: 118,
           duration: 1.4,
@@ -91,19 +80,23 @@ export function HeroSection() {
         intervalId = setInterval(cycle, 2600)
       })
 
-      /* --- Scroll exit: pin + drift/fade out (no blur) --- */
-      gsap.to('.hero-content', {
-        yPercent: -18,
-        scale: 0.92,
-        autoAlpha: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top top',
-          end: '85% top',
-          scrub: 0.4,
-        },
-      })
+      /* --- Scroll exit: drift/fade out (no blur) --- */
+      gsap.fromTo(
+        '.hero-content',
+        { yPercent: 0, scale: 1, autoAlpha: 1 },
+        {
+          yPercent: -18,
+          scale: 0.92,
+          autoAlpha: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top top',
+            end: '85% top',
+            scrub: 0.4,
+          },
+        }
+      )
 
       return () => {
         unsubscribe()

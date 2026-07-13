@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { gsap } from '@/lib/gsap'
 import { getLenis } from '@/lib/scroll'
@@ -92,9 +93,16 @@ export function Navbar() {
           <div ref={logoRef} className="[transform-style:preserve-3d]">
             <TransitionLink
               href="/"
-              className="relative block font-display text-lg font-semibold tracking-tight"
+              className="relative block"
             >
-              InfoTech<span className="text-glow">.</span>
+              <Image
+                src="/images/nwe.png"
+                alt="InfoTech"
+                width={140}
+                height={50}
+                className="h-12 w-auto"
+                priority
+              />
             </TransitionLink>
           </div>
 

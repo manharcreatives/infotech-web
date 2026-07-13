@@ -86,7 +86,7 @@ export function VideoPin() {
       <div ref={mobileContainerRef} className="h-screen w-full overflow-hidden relative">
         <video
           ref={videoRef}
-          src="/videos/video-project-65.mp4"
+          src="https://res.cloudinary.com/rc8wd02c/video/upload/v1783963445/infotechplacement_t4hkro.mp4"
           playsInline
           muted
           loop
@@ -106,7 +106,7 @@ export function VideoPin() {
     >
       <video
         ref={videoRef}
-        src="/videos/video-project-65.mp4"
+        src="https://res.cloudinary.com/rc8wd02c/video/upload/v1783963445/infotechplacement_t4hkro.mp4"
         playsInline
         muted
         loop

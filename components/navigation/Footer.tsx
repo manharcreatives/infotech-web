@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { site, footerLinks } from '@/content/site'
 import { getLenis } from '@/lib/scroll'
@@ -48,9 +49,13 @@ export function Footer() {
       <div className="relative z-10 mx-auto w-[min(94%,80rem)] pt-20">
         <div className="grid gap-12 pb-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <p className="font-display text-2xl font-semibold tracking-tight">
-              InfoTech<span className="text-glow">.</span>
-            </p>
+            <Image
+              src="/images/logo.png"
+              alt="InfoTech"
+              width={180}
+              height={60}
+              className="h-16 w-auto"
+            />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-fg-3">
               {site.description}
             </p>

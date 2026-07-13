@@ -6,9 +6,11 @@ import { onPreloaderReady } from '@/lib/preloader'
 import { isPageTransitionActive } from '@/lib/transition'
 
 /**
- * A dark overlay that covers the hero content. At reveal time a circular
- * cutout expands from the center outward — like a camera iris opening —
- * then the overlay fades away.
+ * A dark overlay that covers the hero content. On mount it immediately
+ * covers the full section (circle at full diagonal) so nothing leaks
+ * through when the preloader curtains split. Once the preloader is done
+ * the circle shrinks to 0 % — a camera-iris opening that reveals the
+ * hero from the centre outward.
  *
  * Parent must be `relative` and `overflow-hidden`.
  */
@@ -19,6 +21,9 @@ export function CinematicMask() {
     const el = ref.current
     if (!el) return
 
+    const parent = el.parentElement
+    if (!parent) return
+
     /* On in-app transitions the PageTransitionProvider overlay already
        handles the circle reveal — skip CinematicMask to avoid a
        double-bubble effect. */
@@ -27,26 +32,24 @@ export function CinematicMask() {
       return
     }
 
-    const parent = el.parentElement
-    if (!parent) return
+    const w = parent.offsetWidth || window.innerWidth
+    const h = parent.offsetHeight || window.innerHeight
+    const diagonal = Math.ceil(Math.hypot(w, h))
 
-    /* Waits for the real preloader completion event (homepage) or fires
-       immediately when there's no preloader on this page (inner pages),
-       instead of guessing a fixed delay. */
+    /* Cover the full section immediately — sits behind the preloader
+       (z-20 vs z-300) so it's invisible during the curtain split.
+       When the preloader finishes the iris shrinks from centre. */
+    gsap.set(el, {
+      clipPath: `circle(${diagonal}px at 50% 50%)`,
+      display: 'block',
+    })
+
     const unsubscribe = onPreloaderReady(() => {
-      const w = parent.offsetWidth
-      const h = parent.offsetHeight
-      const diagonal = Math.ceil(Math.hypot(w, h))
-
-      gsap
-        .timeline()
-        .set(el, { clipPath: `circle(0% at 50% 50%)`, display: 'block' })
-        .to(el, {
-          clipPath: `circle(${diagonal}px at 50% 50%)`,
-          duration: 1.4,
-          ease: 'power3.inOut',
-        })
-        .to(el, { autoAlpha: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+      gsap.to(el, {
+        clipPath: 'circle(0% at 50% 50%)',
+        duration: 1.4,
+        ease: 'power3.inOut',
+      })
     })
 
     return unsubscribe

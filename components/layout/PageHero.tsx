@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { gsap, SplitText, useGSAP } from '@/lib/gsap'
 import { ScrambleText } from '@/components/motion/ScrambleText'
 import { CinematicMask } from '@/components/motion/CinematicMask'
-import { onPreloaderReady, isPreloaderDone } from '@/lib/preloader'
+import { onPreloaderReady } from '@/lib/preloader'
 
 /**
  * Shared inner-page opener with the same cinematic treatments as the
@@ -37,7 +37,7 @@ export function PageHero({
       /* Inner pages never have a <Preloader> — this only waits on it when
          you've arrived here mid-transition from the homepage's preloader;
          otherwise it fires with a small polish buffer, not a fixed guess. */
-      const settleDelay = isPreloaderDone() ? 0.35 : 0.15
+      const settleDelay = 0.15
       const unsubscribe = onPreloaderReady(() => {
         gsap
           .timeline({ delay: settleDelay })
