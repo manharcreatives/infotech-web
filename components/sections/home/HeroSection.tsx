@@ -123,13 +123,6 @@ export function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 size-full object-cover"
       />
-      <div className="absolute inset-0 bg-ink/65" />
-
-      {/* --- Grid background --- */}
-      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_75%_65%_at_50%_40%,black_35%,transparent_78%)]" />
-
-      {/* horizon line glow */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glow/60 to-transparent" />
 
       <CinematicMask />
 
