@@ -18,6 +18,8 @@ export default function ProcessPage() {
         index="03"
         eyebrow="The Method"
         bgImage="/images/heroes/hero-process.webp"
+        bgPosition="center 62%"
+        className="md:pt-72 md:pb-36"
         title={
           <>
             Eleven steps.

@@ -5,7 +5,6 @@ import { HeroSection } from '@/components/sections/home/HeroSection'
 import { StatementSection } from '@/components/sections/home/StatementSection'
 import { ServicesBento } from '@/components/sections/home/ServicesBento'
 import { ProcessHorizontal } from '@/components/sections/home/ProcessHorizontal'
-import { BenefitsSection } from '@/components/sections/home/BenefitsSection'
 import { StatsSection } from '@/components/sections/home/StatsSection'
 import { TestimonialsMarquee } from '@/components/sections/home/TestimonialsMarquee'
 import { FAQSection } from '@/components/sections/home/FAQSection'
@@ -41,7 +40,6 @@ export default function HomePage() {
       <StatementSection />
       <ServicesBento />
       <ProcessHorizontal />
-      <BenefitsSection />
       <BlogPreview />
       <TestimonialsMarquee />
       <StatsSection />

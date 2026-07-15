@@ -24,18 +24,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    let last = 0
     const onScroll = () => {
       const y = window.scrollY
       setScrolled(y > 24)
-      if (!barRef.current || open) return
-      const goingDown = y > last && y > 140
-      gsap.to(barRef.current, {
-        yPercent: goingDown ? -160 : 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      })
-      last = y
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -112,8 +103,8 @@ export function Navbar() {
                 <TransitionLink
                   href={link.href}
                   className={cn(
-                    'link-sweep text-sm tracking-wide transition-colors duration-300',
-                    pathname === link.href ? 'text-fg' : 'text-fg-3 hover:text-fg'
+                    'link-sweep text-sm font-medium tracking-wide transition-colors duration-300',
+                    pathname === link.href ? 'text-fg' : scrolled ? 'text-fg-2 hover:text-fg' : 'text-fg-3 hover:text-fg'
                   )}
                 >
                   {link.label}

@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from 'react'
 import Image from 'next/image'
 import { gsap, SplitText, useGSAP } from '@/lib/gsap'
+import { cn } from '@/lib/utils'
 import { ScrambleText } from '@/components/motion/ScrambleText'
 import { CinematicMask } from '@/components/motion/CinematicMask'
 import { onPreloaderReady } from '@/lib/preloader'
@@ -17,6 +18,8 @@ export function PageHero({
   title,
   lede,
   bgImage,
+  bgPosition = 'center 30%',
+  className,
 }: {
   index: string
   eyebrow: string
@@ -25,6 +28,10 @@ export function PageHero({
   /** Optional atmospheric backdrop (brand-purple art); rendered behind
       the existing grid/orb layers with a legibility overlay. */
   bgImage?: string
+  /** CSS object-position for bgImage — override when a full-body/standing
+      subject needs a lower crop anchor so feet don't get cut off. */
+  bgPosition?: string
+  className?: string
 }) {
   const ref = useRef<HTMLElement>(null)
 
@@ -65,7 +72,11 @@ export function PageHero({
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden pt-44 pb-20 md:pt-56 md:pb-28"
+      id="site-hero"
+      className={cn(
+        'relative overflow-hidden bg-ink pt-44 pb-20 md:pt-56 md:pb-28',
+        className
+      )}
     >
       {bgImage ? (
         <>
@@ -76,12 +87,14 @@ export function PageHero({
             fill
             unoptimized
             className="absolute inset-0 size-full object-cover"
+            style={{ objectPosition: bgPosition }}
           />
           {/* Legibility scrim: darker on the left where the title sits,
-              lighter on the right so the (intentionally lighter) hero
-              image still reads through instead of going fully dark. */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/72 to-ink/38" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/30" />
+              lighter on the right — kept light enough that the photo
+              still visibly covers the full section instead of reading
+              as a flat panel. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/78 via-ink/48 to-ink/12" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-ink/25" />
         </>
       ) : null}
       <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black_30%,transparent_75%)]" />
@@ -98,7 +111,7 @@ export function PageHero({
           waitForPreloader
           delay={0.5}
         >
-          {`( ${index} | ${eyebrow} )`}
+          {`| ${eyebrow}`}
         </ScrambleText>
         <h1 className="page-hero-title max-w-4xl font-display text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[1.02] tracking-tight">
           {title}

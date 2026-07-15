@@ -4,9 +4,8 @@ import { testimonials } from '@/content/site'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { TransitionLink } from '@/components/ui/TransitionLink'
 
-/* ─── duplicate list so both rows feel full ─── */
-const row1 = [...testimonials, ...testimonials, ...testimonials]
-const row2 = [...testimonials, ...testimonials, ...testimonials].reverse()
+/* ─── duplicate list so the row feels full ─── */
+const row = [...testimonials, ...testimonials, ...testimonials]
 
 export function TestimonialsMarquee() {
   /* Heading words animate in on scroll — simple, no pin */
@@ -89,14 +88,9 @@ export function TestimonialsMarquee() {
         </p>
       </div>
 
-      {/* ── Row 1 — scrolls left ── */}
-      <div className="tes-marquee-row relative z-10 mb-5">
-        <InfiniteRow items={row1} direction="left" speed={28} />
-      </div>
-
-      {/* ── Row 2 — scrolls right ── */}
+      {/* ── Single row — pauses on hover so a visitor can read a card ── */}
       <div className="tes-marquee-row relative z-10">
-        <InfiniteRow items={row2} direction="right" speed={22} />
+        <InfiniteRow items={row} />
       </div>
 
       {/* ── bottom separator ── */}
@@ -121,23 +115,10 @@ export function TestimonialsMarquee() {
 /* ─────────────────────────────────────────── */
 /* Infinite marquee row                        */
 /* ─────────────────────────────────────────── */
-function InfiniteRow({
-  items,
-  direction,
-  speed,
-}: {
-  items: typeof testimonials
-  direction: 'left' | 'right'
-  speed: number
-}) {
+function InfiniteRow({ items }: { items: typeof testimonials }) {
   return (
-    <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-      <div
-        className="flex gap-5 shrink-0"
-        style={{
-          animation: `${direction === 'left' ? 'marquee' : 'marquee-reverse'} ${speed}s linear infinite`,
-        }}
-      >
+    <div className="marquee-paused overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+      <div className="marquee-track gap-5">
         {items.map((t, i) => (
           <TestimonialCard key={`${t.name}-${i}`} testimonial={t} />
         ))}

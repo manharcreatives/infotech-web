@@ -1,15 +1,13 @@
 'use client'
 
 import { useRef } from 'react'
-import { Check, ShieldCheck, Sparkles } from 'lucide-react'
+import { Check, ShieldCheck, Sparkles, MapPin } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { Button } from '@/components/ui/Button'
 
 /**
- * The three US enrollment plans as a tiered stage: the Advance plan is
- * physically elevated with a gradient keyline, glow and "Most Popular"
- * seal; Basic and Premium flank it.
- * Client-supplied tiers (July 2026) — copy verbatim.
+ * Canada enrollment plans — Professional and Elite tiers.
+ * Flag badge + summary banner + plan cards.
  */
 
 interface Plan {
@@ -22,21 +20,16 @@ interface Plan {
   badge?: string
 }
 
-const plans: Plan[] = [
+const canadaPlans: Plan[] = [
   {
-    name: 'Basic',
-    price: '$1,500',
+    name: 'Professional',
+    price: '$1,499',
     payment: 'Upfront + 11% of annual package (1st year)',
-    badge: '',
+    badge: 'Best for Smart Start',
     features: [
       'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
       'Dedicated Recruiter',
       'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
       'LinkedIn Optimization',
       'Resume Promotion Service',
       'Email Correspondence Assistance',
@@ -48,44 +41,15 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: 'Advance',
-    price: 'Custom',
-    payment: 'Upfront + 10% of annual package (1st year)',
-    featured: true,
-    badge: 'Most Popular',
-    features: [
-      'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
-      'Dedicated Recruiter',
-      'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
-      'LinkedIn Optimization',
-      'Resume Promotion Service',
-      'Email Correspondence Assistance',
-    ],
-    guarantees: [
-      'Money-Back Guarantee',
-      '120 Working Days Job Guarantee',
-      '60% Refund on Upfront Amount',
-    ],
-  },
-  {
-    name: 'Premium',
-    price: 'Custom',
+    name: 'Elite',
+    price: '$2,499',
     payment: 'Upfront + 9% of annual package (1st year)',
-    badge: '',
+    featured: true,
+    badge: 'Best Value — Maximum Results',
     features: [
       'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
       'Dedicated Recruiter',
       'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
       'LinkedIn Optimization',
       'Resume Promotion Service',
       'Email Correspondence Assistance',
@@ -114,7 +78,7 @@ function CornerTicks() {
   )
 }
 
-function PlanCard({ plan }: { plan: Plan }) {
+function CanadaPlanCard({ plan }: { plan: Plan }) {
   const inner = (
     <div
       className={`relative flex h-full flex-col overflow-hidden p-8 md:p-10 ${
@@ -135,6 +99,13 @@ function PlanCard({ plan }: { plan: Plan }) {
       )}
 
       <div className="relative">
+        {plan.badge && (
+          <p className={`mb-3 text-xs font-medium uppercase tracking-widest ${
+            plan.featured ? 'text-glow' : 'text-brand'
+          }`}>
+            {plan.badge}
+          </p>
+        )}
         <p
           className={`text-xs uppercase tracking-[0.3em] ${
             plan.featured ? 'text-glow' : 'text-fg-3'
@@ -191,7 +162,6 @@ function PlanCard({ plan }: { plan: Plan }) {
   if (plan.featured) {
     return (
       <div className="plan-card relative md:-my-6">
-        {/* most-popular seal */}
         <span className="absolute -top-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-glow/40 bg-ink px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-glow shadow-[0_0_24px_-4px_rgba(255,141,235,0.5)]">
           <Sparkles className="size-3" />
           Most Popular
@@ -206,12 +176,12 @@ function PlanCard({ plan }: { plan: Plan }) {
   return <div className="plan-card h-full">{inner}</div>
 }
 
-export function PlanTiers() {
+export function CanadaPlanTiers() {
   const ref = useRef<HTMLElement>(null)
 
   useGSAP(
     () => {
-      gsap.utils.toArray<HTMLElement>('.plan-card').forEach((card, i) => {
+      gsap.utils.toArray<HTMLElement>('.canada-plan-card').forEach((card, i) => {
         gsap.from(card, {
           y: 70,
           autoAlpha: 0,
@@ -226,7 +196,7 @@ export function PlanTiers() {
   )
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ink-2 py-24 md:py-36">
+    <section ref={ref} className="relative overflow-hidden bg-ink py-24 md:py-36">
       {/* ambient stage light behind the featured tier */}
       <div
         aria-hidden="true"
@@ -238,21 +208,68 @@ export function PlanTiers() {
       />
 
       <div className="relative mx-auto w-[min(94%,80rem)]">
-        <div className="mb-12">
-          <p className="text-xs uppercase tracking-[0.35em] text-fg-3">
-            US Program
-          </p>
-          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-            The Right Connection Changes Everything
-          </h2>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-fg-2">
-            120 Working Days Job Guarantee — Flat 60% Refund on Upfront Amount.
-          </p>
+        {/* Gradient divider */}
+        <div className="mb-16 flex items-center gap-6">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
+          <div className="flex items-center gap-3 rounded-full border border-line bg-surface/50 px-5 py-2.5 backdrop-blur-sm">
+            <span className="text-2xl">🇨🇦</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-fg-2">
+              Canada Program
+            </span>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
         </div>
 
-        <div className="grid items-stretch gap-6 md:grid-cols-3 md:gap-5 md:py-6">
-          {plans.map((plan) => (
-            <PlanCard key={plan.name} plan={plan} />
+        {/* Summary banner */}
+        <div className="mb-14 rounded-2xl border border-line/60 bg-surface/30 p-8 backdrop-blur-sm md:p-10">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+                The Right Connection Changes Everything
+              </h2>
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-fg-2">
+                Trusted Placement Partner — 120 Working Days Job Guarantee. Get placed faster with expert recruiter support.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-6">
+              <div className="text-center">
+                <p className="font-display text-2xl font-bold text-glow">60%</p>
+                <p className="mt-1 text-[10px] uppercase tracking-widest text-fg-3">Refund</p>
+              </div>
+              <div className="h-12 w-px bg-line-2" />
+              <div className="text-center">
+                <p className="font-display text-2xl font-bold text-glow">120</p>
+                <p className="mt-1 text-[10px] uppercase tracking-widest text-fg-3">Days</p>
+              </div>
+              <div className="h-12 w-px bg-line-2" />
+              <div className="text-center">
+                <p className="font-display text-2xl font-bold text-glow">1:1</p>
+                <p className="mt-1 text-[10px] uppercase tracking-widest text-fg-3">Sessions</p>
+              </div>
+              <div className="h-12 w-px bg-line-2" />
+              <div className="text-center">
+                <div className="flex items-center justify-center">
+                  <MapPin className="size-4 text-glow" />
+                </div>
+                <p className="mt-1 text-[10px] uppercase tracking-widest text-fg-3">Dedicated</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature tags */}
+          <div className="mt-8 flex flex-wrap gap-2 border-t border-line-2 pt-6">
+            {['Resume Preparation', 'Resume Understanding Session (1:1)', 'Dedicated Recruiter', 'Technical Training', 'TOC Session', 'JDC Session', 'LinkedIn Optimization', 'Resume Promotion Service', 'Email Correspondence Assistance'].map((f) => (
+              <span key={f} className="rounded-full border border-line bg-ink/40 px-3 py-1 text-[11px] text-fg-3">
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Plan cards */}
+        <div className="mx-auto grid items-stretch gap-6 md:grid-cols-2 md:gap-5 md:py-6 md:max-w-4xl">
+          {canadaPlans.map((plan) => (
+            <CanadaPlanCard key={plan.name} plan={plan} />
           ))}
         </div>
 

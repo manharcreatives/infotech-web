@@ -7,7 +7,7 @@ import { site, footerLinks } from '@/content/site'
 import { getLenis } from '@/lib/scroll'
 import { Magnetic } from '@/components/motion/Magnetic'
 import { TransitionLink } from '@/components/ui/TransitionLink'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Instagram, Linkedin, Phone } from 'lucide-react'
 
 /**
  * Mega footer: link columns over a giant clipped wordmark that
@@ -77,19 +77,36 @@ export function Footer() {
                   {site.phone}
                 </a>
               </li>
-              <li>
-                <a
-                  href={site.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-sweep text-fg-2 hover:text-fg"
-                >
-                  LinkedIn
-                </a>
-              </li>
               <li className="text-fg-3">Available 24/7</li>
               <li className="text-fg-3">US · Canada · UK · New Zealand</li>
             </ul>
+            <div className="mt-6 flex items-center gap-4">
+              <a
+                href="https://www.instagram.com/infotech_placement?igsh=enkwc211ZDB0OTBi"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="grid size-10 place-items-center rounded-full border border-line text-fg-3 transition-all duration-300 hover:border-glow hover:bg-brand/10 hover:text-fg"
+              >
+                <Instagram className="size-4" />
+              </a>
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="grid size-10 place-items-center rounded-full border border-line text-fg-3 transition-all duration-300 hover:border-glow hover:bg-brand/10 hover:text-fg"
+              >
+                <Linkedin className="size-4" />
+              </a>
+              <a
+                href={`tel:${site.phone.replace(/\s/g, '')}`}
+                aria-label="Phone"
+                className="grid size-10 place-items-center rounded-full border border-line text-fg-3 transition-all duration-300 hover:border-glow hover:bg-brand/10 hover:text-fg"
+              >
+                <Phone className="size-4" />
+              </a>
+            </div>
             <Magnetic className="mt-8 inline-block">
               <button
                 onClick={scrollTop}

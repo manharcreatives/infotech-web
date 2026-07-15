@@ -37,7 +37,7 @@ export function BlogPreview() {
         <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <ClipRevealText as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
-              ( 04 | Insights )
+              Insights
             </ClipRevealText>
             <SplitLines
               as="h2"

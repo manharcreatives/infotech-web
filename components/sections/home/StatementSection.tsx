@@ -36,7 +36,7 @@ export function StatementSection() {
       {/* Sweep layer — brand gradient + atmospheric image slide in from the
           left with the existing clip-path scrub (image reveals as you scroll;
           inherits the section's motion + reduced-motion behavior) */}
-      <div className="statement-sweep absolute inset-0 bg-gradient-to-r from-brand/8 to-transparent">
+      <div className="statement-sweep absolute inset-0 bg-gradient-to-r from-brand/5 via-transparent to-transparent">
         <Image
           src="/images/sections/philosophy-bg.png"
           alt=""
@@ -44,7 +44,7 @@ export function StatementSection() {
           fill
           unoptimized
           loading="lazy"
-          className="absolute inset-0 size-full object-cover opacity-[0.18]"
+          className="absolute inset-0 size-full object-cover opacity-[0.12]"
         />
       </div>
 
@@ -53,7 +53,7 @@ export function StatementSection() {
           as="p"
           className="mb-10 text-xs uppercase tracking-[0.35em] text-fg-3"
         >
-          ( 01 | The Philosophy )
+          The Philosophy
         </SplitLines>
 
         <WordColorReveal

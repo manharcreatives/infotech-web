@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { PlanTiers } from '@/components/sections/PlanTiers'
+import { CanadaPlanTiers } from '@/components/sections/CanadaPlanTiers'
 import { FAQSection } from '@/components/sections/home/FAQSection'
 import { CTASection } from '@/components/sections/home/CTASection'
 
@@ -17,7 +18,7 @@ import { CTASection } from '@/components/sections/home/CTASection'
 export const metadata: Metadata = {
   title: 'Plans',
   description:
-    'InfoTech Placement enrollment plans: Basic, Advance and Premium — one structured program, deeper support at every tier.',
+    'InfoTech Placement enrollment plans: US plans (Basic, Advance, Premium) and Canada plans (Professional, Elite) — one structured program, deeper support at every tier.',
   robots: { index: false, follow: false },
 }
 
@@ -29,15 +30,16 @@ export default function PlanPage() {
         eyebrow="Plans"
         title={
           <>
-            Three plans.
+            The Right Connection
             <br />
-            One destination.
+            Changes Everything.
           </>
         }
         lede="Pick the level of support you want on the way to placement — every plan runs on the same structured program, with the same team behind it."
       />
 
       <PlanTiers />
+      <CanadaPlanTiers />
 
       <FAQSection />
       <CTASection />

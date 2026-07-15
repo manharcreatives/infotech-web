@@ -6,6 +6,8 @@ import { CustomCursor } from '@/components/global/CustomCursor'
 import { PageTransitionProvider } from '@/components/global/PageTransitionProvider'
 import { Navbar } from '@/components/navigation/Navbar'
 import { Footer } from '@/components/navigation/Footer'
+import { WhatsAppFloat } from '@/components/global/WhatsAppFloat'
+import { Chatbot } from '@/components/global/Chatbot'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -63,6 +65,8 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <WhatsAppFloat />
+            <Chatbot />
           </SmoothScrollProvider>
         </PageTransitionProvider>
       </body>

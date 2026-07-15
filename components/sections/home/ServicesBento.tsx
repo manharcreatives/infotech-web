@@ -2,7 +2,6 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { services } from '@/content/site'
 import { SpotlightCard } from '@/components/motion/SpotlightCard'
@@ -34,7 +33,7 @@ export function ServicesBento() {
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <ClipRevealText as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
-              ( 02 | What we do )
+              What we do
             </ClipRevealText>
             <SplitLines
               as="h2"
@@ -71,9 +70,6 @@ export function ServicesBento() {
                 <div className="flex items-start justify-between">
                   <span className="text-stroke font-display text-5xl font-bold md:text-6xl">
                     {service.id}
-                  </span>
-                  <span className="grid size-10 place-items-center rounded-full border border-line transition-all duration-500 group-hover:rotate-45 group-hover:border-glow group-hover:bg-brand/15">
-                    <ArrowUpRight className="size-4 text-fg-2" />
                   </span>
                 </div>
                 <div>

@@ -73,7 +73,7 @@ export function ReferTicket() {
 
       <div className="relative mx-auto w-[min(94%,80rem)]">
         <SplitLines as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
-          ( 05 | Refer &amp; Earn )
+          Refer &amp; Earn
         </SplitLines>
         <SplitLines
           as="h2"

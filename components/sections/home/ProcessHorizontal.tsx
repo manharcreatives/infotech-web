@@ -121,7 +121,7 @@ export function ProcessHorizontal() {
       <div className="relative flex min-h-svh flex-col justify-center py-24 md:py-0">
         <div className="mx-auto mb-14 w-[min(94%,80rem)] md:mb-10">
           <SplitLines as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
-            ( 03 | The Method )
+            The Method
           </SplitLines>
           <SplitLines
             as="h2"

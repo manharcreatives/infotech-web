@@ -4,11 +4,9 @@ import Image from 'next/image'
 import { ClipRevealText } from '@/components/motion/ClipRevealText'
 
 /**
- * Employer logo wall. Logos are real brand marks served locally from
- * /public/images/employers (downloaded once — no third-party requests
- * at runtime, no broken-image states). Each mark sits on a white coin
- * so true brand colors read correctly on the dark theme — including
- * dark wordmarks like Berkshire Hathaway and Fannie Mae.
+ * Employer logo wall — professional, award-worthy presentation.
+ * Single row of logos in card-like containers with hover effects.
+ * Clean, minimal design that reads as a trust badge section.
  */
 
 const employerData = [
@@ -35,28 +33,24 @@ const employerData = [
   { name: 'Red Bull', logo: 'redbull' },
 ]
 
-/* split into two rows so the band reads as a wall of logos */
-const rowA = employerData.filter((_, i) => i % 2 === 0)
-const rowB = employerData.filter((_, i) => i % 2 === 1)
-
-function LogoPill({ name, logo }: { name: string; logo: string }) {
+function LogoCard({ name, logo }: { name: string; logo: string }) {
   return (
     <div
-      className="group/logo mr-4 flex shrink-0 items-center gap-3 rounded-full border border-line bg-surface/40 py-2 pr-5 pl-2 whitespace-nowrap backdrop-blur-sm transition-colors duration-300 hover:border-glow/40 hover:bg-surface/70"
+      className="group/logo relative flex shrink-0 flex-col items-center gap-3 rounded-2xl border border-line/60 bg-surface/30 px-6 py-5 backdrop-blur-sm transition-all duration-500 hover:border-glow/40 hover:bg-surface/60 hover:shadow-[0_8px_32px_-8px_rgba(177,78,255,0.2)]"
       title={name}
     >
       {/* white coin keeps true brand colors legible on the dark theme */}
-      <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-full bg-white p-1.5">
+      <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-2 shadow-sm transition-transform duration-500 group-hover/logo:scale-110">
         <Image
           src={`/images/employers/${logo}.png`}
           alt={`${name} logo`}
-          width={36}
-          height={36}
+          width={48}
+          height={48}
           unoptimized
           className="max-h-full max-w-full object-contain"
         />
       </span>
-      <span className="text-sm font-medium tracking-tight text-fg-2 transition-colors duration-300 group-hover/logo:text-fg">
+      <span className="text-xs font-medium tracking-wide text-fg-3 transition-colors duration-300 group-hover/logo:text-fg-2">
         {name}
       </span>
     </div>
@@ -71,12 +65,12 @@ function MarqueeRow({
   reverse?: boolean
 }) {
   return (
-    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)]">
+    <div className="marquee-paused overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
       <div className={`marquee-track items-center ${reverse ? 'reverse' : ''}`}>
         {[0, 1].map((copy) => (
-          <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+          <div key={copy} className="flex shrink-0 items-center gap-4" aria-hidden={copy === 1}>
             {items.map((emp) => (
-              <LogoPill key={`${copy}-${emp.logo}`} name={emp.name} logo={emp.logo} />
+              <LogoCard key={`${copy}-${emp.logo}`} name={emp.name} logo={emp.logo} />
             ))}
           </div>
         ))}
@@ -100,7 +94,7 @@ export function EmployerMarquee() {
 
       <div className="relative mx-auto mb-10 w-[min(94%,80rem)]">
         <ClipRevealText as="p" className="mb-3 block text-xs uppercase tracking-[0.35em] text-fg-3">
-          ( Placement network )
+          Placement network
         </ClipRevealText>
         <ClipRevealText
           as="h2"
@@ -110,9 +104,8 @@ export function EmployerMarquee() {
         </ClipRevealText>
       </div>
 
-      <div className="relative space-y-4" aria-label="Employer placement network">
-        <MarqueeRow items={rowA} />
-        <MarqueeRow items={rowB} reverse />
+      <div className="relative" aria-label="Employer placement network">
+        <MarqueeRow items={employerData} />
       </div>
     </section>
   )

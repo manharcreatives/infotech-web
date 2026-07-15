@@ -274,9 +274,9 @@ export const candidateServices = [
  * "Countries served" is verified fact.
  */
 export const stats = [
-  { value: 50, suffix: '+', label: 'Successful placements' },
-  { value: 120, suffix: '+', label: 'Profiles marketed' },
-  { value: 89, suffix: '%', label: 'Client satisfaction' },
+  { value: 70, suffix: '+', label: 'Successful placements' },
+  { value: 150, suffix: '+', label: 'Profiles marketed' },
+  { value: 94, suffix: '%', label: 'Client satisfaction' },
   { value: 4, suffix: '', label: 'Countries served' },
 ]
 

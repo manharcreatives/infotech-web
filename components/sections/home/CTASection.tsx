@@ -1,29 +1,25 @@
 'use client'
 
-import { useRef } from 'react'
-import { gsap, useGSAP } from '@/lib/gsap'
 import { Button } from '@/components/ui/Button'
 import { AnimatedTitle3D } from '@/components/motion/AnimatedTitle3D'
 import { ClipRevealText } from '@/components/motion/ClipRevealText'
-import { SplitLines } from '@/components/motion/SplitLines'
 
 export function CTASection() {
-  const ref = useRef<HTMLElement>(null)
-
-  useGSAP(
-    () => {
-      /* Orb removed for clean design */
-    },
-    { scope: ref }
-  )
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ink py-36 md:py-52">
-      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_55%_at_50%_50%,black_25%,transparent_75%)]" />
+    <section className="relative overflow-hidden bg-ink py-36 md:py-52">
+      {/* Aurora glow + watermark backdrop */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand/5 via-transparent to-glow/5" />
+        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_55%_at_50%_50%,black_25%,transparent_75%)]" />
+
+        <div className="cta-aurora-a absolute -left-1/4 top-0 size-[42rem] rounded-full bg-brand/25 blur-[120px]" />
+        <div className="cta-aurora-b absolute -right-1/4 bottom-0 size-[38rem] rounded-full bg-glow/20 blur-[130px]" />
+      </div>
 
       <div className="relative z-10 mx-auto flex w-[min(94%,80rem)] flex-col items-center text-center">
         <ClipRevealText as="p" className="mb-6 text-xs uppercase tracking-[0.35em] text-fg-3">
-          ( 07 | Your move )
+          Your move
         </ClipRevealText>
 
         <AnimatedTitle3D

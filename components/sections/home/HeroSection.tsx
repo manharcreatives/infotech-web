@@ -109,12 +109,13 @@ export function HeroSection() {
   return (
     <section
       ref={rootRef}
+      id="site-hero"
       className="relative flex min-h-svh flex-col justify-end overflow-hidden"
     >
       {/* --- Backdrop video (auto-loop) + overlay; still image as poster
           so the frame is never empty while the video buffers --- */}
       <video
-        src="https://res.cloudinary.com/rc8wd02c/video/upload/v1783882246/InfotechHero2_bpbu7j.mp4"
+        src="https://res.cloudinary.com/rc8wd02c/video/upload/v1784109584/infotech_2nd_video_ejryeb.mp4"
         autoPlay
         loop
         muted
@@ -123,6 +124,7 @@ export function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 size-full object-cover"
       />
+      <div aria-hidden="true" className="absolute inset-0 bg-black/30" />
 
       <CinematicMask />
 

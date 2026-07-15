@@ -150,7 +150,7 @@ export function JourneyScroll() {
     <section ref={ref} className="relative bg-ink py-24 md:py-32">
       <div className="mx-auto w-[min(94%,84rem)]">
         <SplitLines as="p" className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
-          ( Every step, published )
+          Every step, published
         </SplitLines>
         <SplitLines
           as="h2"
