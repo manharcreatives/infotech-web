@@ -104,7 +104,7 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     'link-sweep text-sm font-medium tracking-wide transition-colors duration-300',
-                    pathname === link.href ? 'text-fg' : scrolled ? 'text-fg-2 hover:text-fg' : 'text-fg-3 hover:text-fg'
+                    pathname === link.href ? 'text-fg' : scrolled ? 'text-fg-2 hover:text-fg' : 'text-fg-2 hover:text-fg'
                   )}
                 >
                   {link.label}

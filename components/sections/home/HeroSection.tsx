@@ -129,7 +129,7 @@ export function HeroSection() {
       <CinematicMask />
 
       <div className="hero-content relative z-10 mx-auto flex w-[min(94%,80rem)] flex-1 flex-col justify-center pt-32 pb-16">
-        <p className="hero-fade mb-8 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-fg-3">
+        <p className="hero-fade mb-8 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-fg-2">
           <span className="inline-block size-1.5 rounded-full bg-success shadow-[0_0_12px_2px_rgba(34,197,94,0.5)]" />
           Serving the US · Canada · UK · New Zealand
         </p>
@@ -146,7 +146,7 @@ export function HeroSection() {
         <div className="mt-10 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <ScrambleText
             as="p"
-            className="max-w-md text-base leading-relaxed text-fg-2 md:text-lg"
+            className="max-w-md text-base leading-relaxed text-white/75 md:text-lg"
             delay={1.35}
             scrambleDuration={1.4}
             stagger={0.03}
