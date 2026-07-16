@@ -124,7 +124,7 @@ export function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 size-full object-cover"
       />
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/10" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30" />
 
       <CinematicMask />
 
