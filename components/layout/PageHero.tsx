@@ -20,6 +20,7 @@ export function PageHero({
   bgImage,
   bgPosition = 'center 30%',
   className,
+  children,
 }: {
   index: string
   eyebrow: string
@@ -32,6 +33,7 @@ export function PageHero({
       subject needs a lower crop anchor so feet don't get cut off. */
   bgPosition?: string
   className?: string
+  children?: ReactNode
 }) {
   const ref = useRef<HTMLElement>(null)
 
@@ -73,8 +75,9 @@ export function PageHero({
     <section
       ref={ref}
       id="site-hero"
+      style={{ height: '100svh' }}
       className={cn(
-        'relative overflow-hidden bg-ink pt-44 pb-20 md:pt-56 md:pb-28',
+        'relative overflow-hidden bg-ink',
         className
       )}
     >
@@ -101,7 +104,7 @@ export function PageHero({
 
       <CinematicMask />
 
-      <div className="relative z-10 mx-auto w-[min(94%,80rem)]">
+      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[min(94%,80rem)] pb-20 md:pb-28">
         <ScrambleText
           as="p"
           className="mb-6 text-xs uppercase tracking-[0.35em] text-fg-3"
@@ -133,6 +136,7 @@ export function PageHero({
           <div className="hero-ambient" />
         </div>
       )}
+        {children}
       </div>
     </section>
   )

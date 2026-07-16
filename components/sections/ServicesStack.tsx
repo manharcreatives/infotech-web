@@ -163,7 +163,7 @@ export function ServicesStack() {
                 </div>
 
                 {/* per-service visual */}
-                <div className="relative hidden aspect-[4/5] max-h-[62svh] overflow-hidden rounded-2xl border border-line bg-surface/40 md:block">
+                <div className="relative aspect-[4/5] max-h-[50svh] overflow-hidden rounded-2xl border border-line bg-surface/40 md:max-h-[62svh]">
                   <Image
                     src={`/images/services/service-${String(i + 1).padStart(2, '0')}.webp`}
                     alt=""

@@ -187,14 +187,22 @@ export function ValuesReel() {
         </h2>
         <ol className="space-y-10">
           {coreValues.map((cv, i) => (
-            <li key={cv.title} className="border-l-2 border-brand/40 pl-5">
-              <span className="text-xs uppercase tracking-[0.3em] text-fg-3">
+            <li key={cv.title} className="relative overflow-hidden rounded-2xl border border-line-2 pl-5 pr-5 pt-10 pb-8">
+              <Image
+                src={`/images/values/value-${String(i + 1).padStart(2, '0')}.webp`}
+                alt=""
+                fill
+                unoptimized
+                className="absolute inset-0 size-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-ink/80 via-ink/70 to-ink/60" />
+              <span className="relative text-xs uppercase tracking-[0.3em] text-fg-3">
                 {String(i + 1).padStart(2, '0')} / 08
               </span>
-              <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-gradient-brand">
+              <h3 className="relative mt-2 font-display text-2xl font-bold tracking-tight text-gradient-brand">
                 {cv.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-fg-3">{cv.description}</p>
+              <p className="relative mt-2 text-sm leading-relaxed text-fg-2">{cv.description}</p>
             </li>
           ))}
         </ol>

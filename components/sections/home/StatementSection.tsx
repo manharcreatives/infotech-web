@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef } from 'react'
-import Image from 'next/image'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { statement } from '@/content/site'
 import { WordColorReveal } from '@/components/motion/WordColorReveal'
@@ -32,21 +31,15 @@ export function StatementSection() {
   })
 
   return (
-    <section ref={ref} className="relative min-h-svh bg-ink">
-      {/* Sweep layer — brand gradient + atmospheric image slide in from the
-          left with the existing clip-path scrub (image reveals as you scroll;
-          inherits the section's motion + reduced-motion behavior) */}
-      <div className="statement-sweep absolute inset-0 bg-gradient-to-r from-brand/5 via-transparent to-transparent">
-        <Image
-          src="/images/sections/philosophy-bg.png"
-          alt=""
-          aria-hidden="true"
-          fill
-          unoptimized
-          loading="lazy"
-          className="absolute inset-0 size-full object-cover opacity-[0.12]"
-        />
-      </div>
+    <section ref={ref} className="relative min-h-svh overflow-hidden bg-ink">
+      <img
+        src="/bgr.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 size-full object-cover opacity-30"
+        style={{ transform: 'scale(1.3)', transformOrigin: 'center' }}
+      />
+      <div className="statement-sweep absolute inset-0 bg-gradient-to-r from-brand/5 via-transparent to-transparent" />
 
       <div className="relative z-10 mx-auto flex min-h-svh w-[min(94%,68rem)] flex-col justify-center py-32 md:py-44">
         <SplitLines

@@ -32,27 +32,34 @@ export default function AboutPage() {
           </>
         }
         lede="InfoTech Placement LLC was founded in November 2025 on a simple belief: every talented professional deserves the right opportunity, and a structured path to reach it."
-      />
-
-      {/* Hero CTAs per SRS §5.2.1 — LinkedIn is external, so it uses a
-          plain anchor rather than the TransitionLink-based Button */}
-      <div className="mx-auto mb-4 flex w-[min(94%,80rem)] flex-wrap items-center gap-4 pb-12">
-        <a
-          href={site.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-brand-hover"
-        >
-          Join us on LinkedIn
-        </a>
-        <Button href="/services" variant="ghost">
-          Explore our services
-        </Button>
-      </div>
+      >
+        {/* Hero CTAs per SRS §5.2.1 — LinkedIn is external, so it uses a
+            plain anchor rather than the TransitionLink-based Button */}
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-brand-hover"
+          >
+            Join us on LinkedIn
+          </a>
+          <Button href="/services" variant="ghost">
+            Explore our services
+          </Button>
+        </div>
+      </PageHero>
 
       {/* Founding story */}
-      <section className="bg-ink-2 py-28 md:py-40">
-        <div className="mx-auto w-[min(94%,68rem)]">
+      <section className="relative overflow-hidden bg-ink-2 py-28 md:py-40">
+        <img
+          src="/bgr2.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover opacity-25"
+          style={{ transform: 'scale(1.2)', transformOrigin: 'center' }}
+        />
+        <div className="relative z-10 mx-auto w-[min(94%,68rem)]">
           <WordColorReveal
             as="h2"
             className="font-display text-[clamp(1.6rem,3.8vw,3rem)] font-medium leading-[1.3] tracking-tight"
