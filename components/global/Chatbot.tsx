@@ -42,7 +42,7 @@ const topics: Topic[] = [
     label: 'Guarantees',
     keywords: ['guarantee', 'money back', 'refund', 'job guarantee', 'safe', 'risk'],
     answer: `Yes! We offer:\n\n• 120 Working Days Job Guarantee\n• Flat 60% Refund on Upfront Amount\n• All terms in writing before you enroll\n\nWe're confident enough in our process to put it in writing.`,
-    action: { label: 'See plan details', href: '/plan' },
+    action: { label: 'See plan details', href: '/usplan' },
   },
   {
     id: 'process',

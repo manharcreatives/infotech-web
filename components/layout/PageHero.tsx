@@ -128,7 +128,11 @@ export function PageHero({
           >
             {lede}
           </ScrambleText>
-        ) : null}
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-ink via-[#1a0a2e] to-ink">
+          <div className="hero-ambient" />
+        </div>
+      )}
       </div>
     </section>
   )

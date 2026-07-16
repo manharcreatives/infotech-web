@@ -18,6 +18,7 @@ export default function BlogIndexPage() {
       <PageHero
         index="11"
         eyebrow="Insights & Resources"
+        bgImage="/images/heroes/hero-services.webp"
         title={
           <>
             Read before

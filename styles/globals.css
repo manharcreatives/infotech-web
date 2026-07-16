@@ -409,6 +409,53 @@ body {
 }
 
 /* ---------------------------------- */
+/* Page hero — animated ambient gradient (no-bgImage pages) */
+/* ---------------------------------- */
+.hero-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-ambient::before,
+.hero-ambient::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+.hero-ambient::before {
+  width: 55rem;
+  height: 30rem;
+  top: -8%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(177, 78, 255, 0.18), transparent 70%);
+  animation: hero-drift-1 14s ease-in-out infinite alternate;
+}
+.hero-ambient::after {
+  width: 40rem;
+  height: 22rem;
+  bottom: 5%;
+  right: 5%;
+  background: radial-gradient(circle, rgba(255, 100, 200, 0.12), transparent 70%);
+  animation: hero-drift-2 18s ease-in-out infinite alternate;
+}
+@keyframes hero-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, 8%) scale(1.15); }
+}
+@keyframes hero-drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-8%, -5%) scale(1.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambient::before,
+  .hero-ambient::after {
+    animation: none;
+  }
+}
+
+/* ---------------------------------- */
 /* Floating safe bottom — iOS Safari  */
 /* ---------------------------------- */
 .floating-safe-bottom {

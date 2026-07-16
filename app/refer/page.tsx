@@ -137,7 +137,7 @@ export default function ReferPage() {
               ))}
             </ul>
           </div>
-          <div className="glass rounded-2xl p-8 md:p-10">
+          <div className="rounded-2xl border border-line bg-surface/30 p-8 backdrop-blur-sm md:p-10">
             <ReferralForm />
           </div>
         </div>
