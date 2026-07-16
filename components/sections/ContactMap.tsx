@@ -1,19 +1,27 @@
+'use client'
+
 import { MapPin } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import { site } from '@/content/site'
+
+const OfficeMap = dynamic(() => import('@/components/sections/OfficeMap').then((m) => m.OfficeMap), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full min-h-72 items-center justify-center bg-ink">
+      <div className="text-sm text-fg-3">Loading map...</div>
+    </div>
+  ),
+})
 
 /**
  * Half-screen map section (SRS §5.5.3 / Phase 3 §4.5).
- *
- * [PENDING: SRS B-7] The office address is not yet confirmed, so the
- * right half renders an on-brand placeholder panel instead of a wrong
- * address. When the client confirms the address, replace the placeholder
- * <div> below with a single Google Maps <iframe> embed (structure is
- * ready for a one-line swap).
+ * Now displays the confirmed office location with an interactive
+ * OpenStreetMap via Leaflet.
  */
 export function ContactMap() {
   return (
     <section className="border-t border-line-2 bg-ink">
-      <div className="mx-auto grid w-[min(94%,80rem)] md:min-h-[50vh] md:grid-cols-2">
+      <div className="mx-auto grid w-[min(94%,80rem)] items-stretch md:grid-cols-2" style={{ minHeight: '50vh' }}>
         {/* Left: contact details on Carbon surface */}
         <div className="flex flex-col justify-center gap-6 bg-ink-2 p-10 md:p-14">
           <p className="text-xs uppercase tracking-[0.35em] text-fg-3">( Find us )</p>
@@ -53,23 +61,29 @@ export function ContactMap() {
             </li>
             <li className="text-fg-3">Available 24/7</li>
           </ul>
+
+          {/* Office address */}
+          <div className="mt-4 rounded-xl border border-line/60 bg-surface/30 p-5 backdrop-blur-sm">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border border-line bg-ink/40">
+                <MapPin className="size-4 text-brand" />
+              </span>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-fg-3">Office Address</p>
+                <p className="mt-1 text-sm font-medium text-fg-2">{site.address}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Right: map slot — swap this div for the Google Maps iframe
-            once the client confirms the office address (B-7) */}
-        <div className="relative min-h-72 overflow-hidden border-t border-line-2 md:border-l md:border-t-0">
-          <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black_30%,transparent_80%)]" />
-          <div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 p-10 text-center">
-            <span className="grid size-12 place-items-center rounded-full border border-line bg-surface/60">
-              <MapPin className="size-5 text-brand" />
-            </span>
-            <p className="font-display text-lg font-medium tracking-tight text-fg-2">
-              Our office location will be displayed here.
-            </p>
-            <p className="max-w-xs text-xs leading-relaxed text-fg-3">
-              Until then, we&rsquo;re one email away — around the clock.
-            </p>
-          </div>
+        {/* Right: Interactive map */}
+        <div className="relative min-h-[288px] border-t border-line-2 md:border-l md:border-t-0" style={{ height: '100%' }}>
+          <OfficeMap
+            lat={site.coordinates.lat}
+            lng={site.coordinates.lng}
+            address={site.address}
+            name={site.name}
+          />
         </div>
       </div>
     </section>

@@ -1,33 +1,26 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/layout/PageHero'
 import { PlanTiers } from '@/components/sections/PlanTiers'
-import { CanadaPlanTiers } from '@/components/sections/CanadaPlanTiers'
 import { FAQSection } from '@/components/sections/home/FAQSection'
 import { CTASection } from '@/components/sections/home/CTASection'
 
 /**
- * Enrollment plans with the client's real tiers (delivered July 2026,
- * superseding the interim /pricing explainer).
- *
- * Follows the same visibility policy as /pricing (SRS §4.5):
- * noindex/nofollow, not in the sitemap, not linked from navigation or
- * footer — shared by the client via direct URL only. If the client
- * wants this page public, lift the robots block and add it to
- * app/sitemap.ts deliberately.
+ * US enrollment plans — Basic, Advance, Premium.
+ * Hidden from search engines (noindex/nofollow), shared by direct URL only.
  */
 export const metadata: Metadata = {
-  title: 'Plans',
+  title: 'US Plans',
   description:
-    'InfoTech Placement LLC enrollment plans: US plans (Basic, Advance, Premium) and Canada plans (Professional, Elite) — one structured program, deeper support at every tier.',
+    'InfoTech Placement LLC US enrollment plans: Basic, Advance and Premium — one structured program, deeper support at every tier.',
   robots: { index: false, follow: false },
 }
 
-export default function PlanPage() {
+export default function USPlanPage() {
   return (
     <main id="main-content">
       <PageHero
         index="08"
-        eyebrow="Plans"
+        eyebrow="US Plans"
         title={
           <>
             The Right Connection
@@ -39,7 +32,6 @@ export default function PlanPage() {
       />
 
       <PlanTiers />
-      <CanadaPlanTiers />
 
       <FAQSection />
       <CTASection />

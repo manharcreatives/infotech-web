@@ -80,9 +80,9 @@ const topics: Topic[] = [
   },
   {
     id: 'about',
-    label: 'About InfoTech',
+    label: 'About InfoTech LLC',
     keywords: ['who', 'about', 'company', 'infotech', 'info tech', 'founded', 'what is'],
-    answer: `InfoTech Placement is a career consulting and placement company founded in November 2025.\n\nWe help professionals across US, Canada, UK & New Zealand with:\n\n• Career transformation\n• Resume & LinkedIn branding\n• Active employer marketing\n• Interview preparation\n• Full placement support\n\nWe don't just place candidates — we build careers.`,
+    answer: `InfoTech Placement LLC is a career consulting and placement company founded in November 2025.\n\nWe help professionals across US, Canada, UK & New Zealand with:\n\n• Career transformation\n• Resume & LinkedIn branding\n• Active employer marketing\n• Interview preparation\n• Full placement support\n\nWe don't just place candidates — we build careers.`,
     action: { label: 'Read our story', href: '/about' },
   },
   {
@@ -126,7 +126,7 @@ function getResponse(input: string): { text: string; topics?: Topic[]; action?: 
 
   if (greetings.some((g) => lower.includes(g)) && lower.length < 20) {
     return {
-      text: `Hi there! 👋 Welcome to InfoTech Placement.\n\nTap a topic below or type your question:`,
+      text: `Hi there! 👋 Welcome to InfoTech Placement LLC.\n\nTap a topic below or type your question:`,
       topics: topics.slice(0, 6),
     }
   }
@@ -169,7 +169,7 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 0,
-      text: `Hi! 👋 I'm the InfoTech Placement assistant.\n\nHow can I help you today?`,
+      text: `Hi! 👋 I'm the InfoTech Placement LLC assistant.\n\nHow can I help you today?`,
       sender: 'bot',
       timestamp: new Date(),
       topics: topics.slice(0, 6),
@@ -346,7 +346,7 @@ export function Chatbot() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="InfoTech Placement chat"
+          aria-label="InfoTech Placement LLC chat"
           className="floating-safe-bottom fixed right-4 z-[10001] flex flex-col overflow-hidden rounded-2xl border border-line bg-ink-2 shadow-2xl shadow-black/50 sm:right-6"
           style={{ width: 'min(440px, calc(100vw - 2rem))', height: 'min(660px, calc(100dvh - 4rem))' }}
         >
@@ -356,7 +356,7 @@ export function Chatbot() {
               <Image src="/images/infotech-bot.png" alt="InfoTech Bot" width={44} height={44} className="size-11 rounded-full object-cover" />
             </div>
             <div className="flex-1">
-              <p className="text-base font-semibold text-fg">InfoTech Assistant</p>
+              <p className="text-base font-semibold text-fg">InfoTech LLC Assistant</p>
               <p className="text-xs text-success">● Online now</p>
             </div>
             <button

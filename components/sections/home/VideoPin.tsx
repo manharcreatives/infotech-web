@@ -185,7 +185,7 @@ function CircleSvg() {
         letterSpacing="4"
       >
         <textPath href="#circle-path" startOffset="0%">
-          INFOTECH PLACEMENT ● FOUR COUNTRIES ● IT AND NON-IT ●
+          INFOTECH PLACEMENT LLC ● FOUR COUNTRIES ● IT AND NON-IT ●
         </textPath>
       </text>
       <circle cx="100" cy="100" r="3" fill="white" className="origin-center" />

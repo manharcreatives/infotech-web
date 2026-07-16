@@ -9,7 +9,7 @@ import { ContactMap } from '@/components/sections/ContactMap'
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
-    'Book a free consultation with InfoTech Placement. We operate 24/7 across the US, Canada, UK and New Zealand. A real consultant answers, any hour.',
+    'Book a free consultation with InfoTech Placement LLC. We operate 24/7 across the US, Canada, UK and New Zealand. A real consultant answers, any hour.',
   alternates: { canonical: '/contact' },
 }
 

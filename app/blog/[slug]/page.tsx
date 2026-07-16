@@ -42,7 +42,7 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { '@type': 'Organization', name: 'InfoTech Placement' },
+    author: { '@type': 'Organization', name: 'InfoTech Placement LLC' },
   }
 
   return (
@@ -65,7 +65,7 @@ export default async function BlogPostPage({
               month: 'long',
               day: 'numeric',
             })}{' '}
-            · {post.readingTime} · InfoTech Placement
+             · {post.readingTime} · InfoTech Placement LLC
           </p>
         </header>
 

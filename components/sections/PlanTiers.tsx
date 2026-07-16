@@ -196,7 +196,9 @@ function PlanCard({ plan }: { plan: Plan }) {
           <Sparkles className="size-3" />
           Most Popular
         </span>
-        <div className="h-full rounded-3xl bg-gradient-to-b from-brand/70 via-glow/35 to-deep/70 p-px shadow-[0_30px_90px_-20px_rgba(177,78,255,0.45)]">
+        {/* Animated glow ring */}
+        <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-b from-brand/60 via-glow/40 to-deep/60 opacity-75 blur-sm animate-[pulse_3s_ease-in-out_infinite]" />
+        <div className="h-full rounded-3xl bg-gradient-to-b from-brand/70 via-glow/35 to-deep/70 p-px shadow-[0_30px_90px_-20px_rgba(177,78,255,0.45)] hover:shadow-[0_30px_120px_-20px_rgba(255,141,235,0.6)] transition-shadow duration-500">
           {inner}
         </div>
       </div>

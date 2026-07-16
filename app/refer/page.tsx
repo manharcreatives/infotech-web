@@ -9,7 +9,7 @@ import { CTASection } from '@/components/sections/home/CTASection'
 export const metadata: Metadata = {
   title: 'Refer & Earn',
   description:
-    'Know a talented professional looking for their next opportunity? Refer them to InfoTech Placement and earn up to $300 when they are successfully placed.',
+    'Know a talented professional looking for their next opportunity? Refer them to InfoTech Placement LLC and earn up to $300 when they are successfully placed.',
   alternates: { canonical: '/refer' },
 }
 
@@ -51,7 +51,7 @@ export default function ReferPage() {
             Earn.
           </>
         }
-        lede="Know a talented professional looking for their next opportunity? Refer them to InfoTech Placement and earn up to $300 when they're successfully placed."
+        lede="Know a talented professional looking for their next opportunity? Refer them to InfoTech Placement LLC and earn up to $300 when they're successfully placed."
       />
 
       <section className="bg-ink-2 py-28 md:py-36">

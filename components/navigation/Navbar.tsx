@@ -77,7 +77,7 @@ export function Navbar() {
       >
         <div
           className={cn(
-            'flex w-full items-center justify-between rounded-full px-5 py-3 transition-all duration-500',
+            'flex w-full items-center justify-between rounded-full px-5 py-4 transition-all duration-500',
             scrolled ? 'glass shadow-[0_16px_48px_-16px_rgba(0,0,0,0.7)]' : ''
           )}
         >
@@ -87,11 +87,11 @@ export function Navbar() {
               className="relative block"
             >
               <Image
-                src="/images/nwe.png"
-                alt="InfoTech"
-                width={140}
-                height={50}
-                className="h-12 w-auto"
+                src="/images/Horizontal_Primary LightBG_ITP_Logo.png"
+                alt="InfoTech Placement LLC"
+                width={180}
+                height={60}
+                className="h-14 w-auto"
                 priority
               />
             </TransitionLink>
@@ -104,7 +104,9 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     'link-sweep text-sm font-medium tracking-wide transition-colors duration-300',
-                    pathname === link.href ? 'text-fg' : scrolled ? 'text-fg-2 hover:text-fg' : 'text-fg-2 hover:text-fg'
+                    pathname === link.href
+                      ? scrolled ? 'text-ink' : 'text-fg'
+                      : scrolled ? 'text-ink-2/70 hover:text-ink' : 'text-fg-2 hover:text-fg'
                   )}
                 >
                   {link.label}
@@ -138,12 +140,14 @@ export function Navbar() {
             <span
               className={cn(
                 'h-px w-6 bg-fg transition-all duration-400',
+                scrolled && 'bg-ink',
                 open && 'translate-y-[3.5px] rotate-45'
               )}
             />
             <span
               className={cn(
                 'h-px w-6 bg-fg transition-all duration-400',
+                scrolled && 'bg-ink',
                 open && '-translate-y-[3.5px] -rotate-45'
               )}
             />

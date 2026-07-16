@@ -7,7 +7,7 @@ import { site, footerLinks } from '@/content/site'
 import { getLenis } from '@/lib/scroll'
 import { Magnetic } from '@/components/motion/Magnetic'
 import { TransitionLink } from '@/components/ui/TransitionLink'
-import { ArrowUp, Instagram, Linkedin, Phone } from 'lucide-react'
+import { ArrowUp, Instagram, Linkedin, Phone, Mail, Twitter } from 'lucide-react'
 
 /**
  * Mega footer: link columns over a giant clipped wordmark that
@@ -107,6 +107,24 @@ export function Footer() {
                 <Phone className="size-4" />
               </a>
             </div>
+            <div className="mt-3 flex items-center gap-4">
+              <a
+                href={`mailto:${site.email}`}
+                aria-label="Email"
+                className="grid size-10 place-items-center rounded-full border border-line text-fg-3 transition-all duration-300 hover:border-glow hover:bg-brand/10 hover:text-fg"
+              >
+                <Mail className="size-4" />
+              </a>
+              <a
+                href="https://x.com/Infotech__llc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (Twitter)"
+                className="grid size-10 place-items-center rounded-full border border-line text-fg-3 transition-all duration-300 hover:border-glow hover:bg-brand/10 hover:text-fg"
+              >
+                <Twitter className="size-4" />
+              </a>
+            </div>
             <Magnetic className="mt-8 inline-block">
               <button
                 onClick={scrollTop}
@@ -135,7 +153,7 @@ export function Footer() {
       {/* Giant wordmark — fully visible at rest (client asked for no
           bottom crop), still parallax-rising as the footer scrolls in */}
       <div aria-hidden="true" className="relative flex justify-center overflow-hidden pb-2 select-none">
-        <span className="footer-wordmark bg-gradient-to-b from-line to-transparent bg-clip-text font-display text-[17.5vw] font-bold leading-none tracking-tighter text-transparent">
+        <span className="footer-wordmark font-display text-[17.5vw] font-bold leading-none tracking-[-0.03em]">
           INFOTECH
         </span>
       </div>

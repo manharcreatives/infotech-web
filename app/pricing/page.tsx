@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/Button'
  */
 export const metadata: Metadata = {
   title: 'Program Pricing',
-  description: 'InfoTech Placement program pricing, shared by direct link.',
+  description: 'InfoTech Placement LLC program pricing, shared by direct link.',
   robots: { index: false, follow: false },
 }
 

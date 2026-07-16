@@ -5,7 +5,7 @@ import { site } from '@/content/site'
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    "The terms that govern your use of InfoTech Placement's website and services: service scope, guarantees, responsibilities and liability, in plain English.",
+    "The terms that govern your use of InfoTech Placement LLC's website and services: service scope, guarantees, responsibilities and liability, in plain English.",
   alternates: { canonical: '/terms' },
 }
 
@@ -21,7 +21,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     heading: 'Acceptance of these terms',
     body: (
       <p>
-        By using this website or engaging InfoTech Placement&rsquo;s services,
+        By using this website or engaging InfoTech Placement LLC&rsquo;s services,
         you agree to these terms. If you enroll in a program, the written
         enrollment agreement you sign takes precedence over this page wherever
         the two differ. These terms govern general use of the site and
@@ -33,7 +33,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     heading: 'What we provide',
     body: (
       <p>
-        InfoTech Placement provides career consulting and placement services
+        InfoTech Placement LLC provides career consulting and placement services
         for candidates: resume optimization, LinkedIn profile enhancement,
         resume marketing to our employer network, interview preparation,
         career counseling, and placement and onboarding support, across the
@@ -81,7 +81,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     body: (
       <p>
         The content, design and branding of this website belong to InfoTech
-        Placement and may not be copied or reused without written permission.
+        Placement LLC and may not be copied or reused without written permission.
         Materials we produce for you during a program, such as your optimized resume and LinkedIn content, are yours to use for your own career.
       </p>
     ),
@@ -90,7 +90,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     heading: 'Limitation of liability',
     body: (
       <p>
-        To the maximum extent permitted by law, InfoTech Placement is not
+        To the maximum extent permitted by law, InfoTech Placement LLC is not
         liable for indirect or consequential losses arising from use of this
         website or our services, including decisions made by employers, or
         outcomes of employment relationships formed through our placements.
@@ -116,7 +116,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
       <p>
         These terms are governed by the laws of the jurisdiction stated in
         your written enrollment agreement. [Jurisdiction to be confirmed by
-        InfoTech Placement prior to launch.]
+        InfoTech Placement LLC prior to launch.]
       </p>
     ),
   },

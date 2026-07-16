@@ -12,7 +12,7 @@ import { whatDrivesUs, promise, site } from '@/content/site'
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Founded in November 2025, InfoTech Placement connects professionals with employers across the US, Canada, UK and New Zealand, IT and Non-IT alike.',
+    'Founded in November 2025, InfoTech Placement LLC connects professionals with employers across the US, Canada, UK and New Zealand, IT and Non-IT alike.',
   alternates: { canonical: '/about' },
 }
 
@@ -23,6 +23,7 @@ export default function AboutPage() {
         index="01"
         eyebrow="Who we are"
         bgImage="/images/heroes/hero-about.webp"
+        bgPosition="right center"
         title={
           <>
             We don&rsquo;t fill vacancies.
@@ -30,7 +31,7 @@ export default function AboutPage() {
             We build careers.
           </>
         }
-        lede="InfoTech Placement was founded in November 2025 on a simple belief: every talented professional deserves the right opportunity, and a structured path to reach it."
+        lede="InfoTech Placement LLC was founded in November 2025 on a simple belief: every talented professional deserves the right opportunity, and a structured path to reach it."
       />
 
       {/* Hero CTAs per SRS §5.2.1 — LinkedIn is external, so it uses a

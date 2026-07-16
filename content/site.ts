@@ -26,15 +26,17 @@
  */
 
 export const site = {
-  name: 'InfoTech Placement',
+  name: 'InfoTech Placement LLC',
   tagline: 'From resume to offer letter.',
   description:
     'Career consulting and placement across the US, Canada, UK and New Zealand: a structured path from resume to full-time role, with support after you start.',
   url: 'https://infotechplacement.com',
   // [PENDING: SRS B-7] business email + phone to be confirmed by client
   email: 'info@infotechplacement.com',
-  phone: '+91 98765 43210',
+  phone: '+1 240 212 5743',
   linkedin: 'https://www.linkedin.com/company/infotech-placement/',
+  address: '30 Gould St STE 300, Sheridan, WY 82801',
+  coordinates: { lat: 44.7978, lng: -106.9574 },
 }
 
 /**
@@ -336,7 +338,7 @@ export const testimonials = [
   },
   {
     quote:
-      'I had been looking for a job for a long time, but InfoTech Placement made everything simple. Their regular follow-ups and support really boosted my confidence.',
+      'I had been looking for a job for a long time, but InfoTech Placement LLC made everything simple. Their regular follow-ups and support really boosted my confidence.',
     name: 'Namrtha B.',
     role: 'Professional',
   },
@@ -348,7 +350,7 @@ export const testimonials = [
   },
   {
     quote:
-      'Thanks to InfoTech Placement, I found an opportunity that suits my skills perfectly. The team was friendly, professional, and always willing to help whenever I needed it.',
+      'Thanks to InfoTech Placement LLC, I found an opportunity that suits my skills perfectly. The team was friendly, professional, and always willing to help whenever I needed it.',
     name: 'Raghu P.',
     role: 'IT Specialist',
   },
@@ -391,7 +393,7 @@ export const faqs: { question: string; answer: string; category: FaqCategory }[]
       'Fees depend on the specific services you enroll for, and we explain them clearly during your free consultation, before you commit to anything. Every enrollment is covered by our conditional money-back guarantee, and all terms are put in writing. Complete transparency is the rule.',
   },
   {
-    question: 'What is InfoTech Placement?',
+    question: 'What is InfoTech Placement LLC?',
     category: 'About Our Services',
     answer:
       'A career consulting and placement company for professionals targeting the United States, Canada, the United Kingdom and New Zealand. We take you through one structured program: career counseling, resume optimization, LinkedIn branding, active resume marketing to our employer network, interview preparation, and support through the offer, the placement and your first months in the role, in IT and Non-IT industries alike.',
@@ -409,7 +411,7 @@ export const faqs: { question: string; answer: string; category: FaqCategory }[]
       'Yes. IT is our deepest bench: software, data, cloud, QA, cybersecurity. But we place Non-IT professionals too: finance, healthcare, HR, sales and marketing, engineering, customer service and administration. Whatever your field, you get the same program, the same commitment and the same eleven-step journey.',
   },
   {
-    question: 'Why choose InfoTech Placement?',
+    question: 'Why choose InfoTech Placement LLC?',
     category: 'About Our Services',
     answer:
       'Because the structure is different: personalized career support, IT and Non-IT expertise, active resume marketing rather than passive job boards, dedicated interview preparation, 24/7 availability and full visibility into your applications, across the US, Canada, UK and New Zealand. And we stay past your start date, because placement is the beginning of the outcome, not the end of it.',

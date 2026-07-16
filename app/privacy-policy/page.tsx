@@ -5,7 +5,7 @@ import { site } from '@/content/site'
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'How InfoTech Placement collects, uses and protects your information: lead form data, analytics, retention, third parties, cookies and your rights.',
+    'How InfoTech Placement LLC collects, uses and protects your information: lead form data, analytics, retention, third parties, cookies and your rights.',
   alternates: { canonical: '/privacy-policy' },
 }
 

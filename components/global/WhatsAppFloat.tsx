@@ -16,7 +16,7 @@ export function WhatsAppFloat() {
   const [visible, setVisible] = useState(false)
   const [mounted, setMounted] = useState(false)
   const phone = site.phone.replace(/\s/g, '').replace('+', '')
-  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent('Hi, I would like to know more about InfoTech Placement.')}`
+  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent('Hi, I would like to know more about InfoTech Placement LLC.')}`
 
   useEffect(() => {
     setMounted(true)
