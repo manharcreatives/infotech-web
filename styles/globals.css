@@ -468,3 +468,41 @@ body {
     transform: translateY(calc(-100% - 1.5rem));
   }
 }
+
+/* ---------------------------------- */
+/* Global scroll-reveal animations    */
+/* Used via IntersectionObserver +    */
+/* .sr-visible class toggled by JS.   */
+/* ---------------------------------- */
+.sr-fade-up {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sr-fade-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sr-fade-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sr-fade-up.sr-visible,
+.sr-fade-left.sr-visible,
+.sr-fade-right.sr-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger delays for child elements */
+.sr-stagger > *:nth-child(1) { transition-delay: 0ms; }
+.sr-stagger > *:nth-child(2) { transition-delay: 80ms; }
+.sr-stagger > *:nth-child(3) { transition-delay: 160ms; }
+.sr-stagger > *:nth-child(4) { transition-delay: 240ms; }

@@ -1,12 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="dot" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#B14EFF"/>
-      <stop offset="1" stop-color="#FF8DEB"/>
+    <linearGradient id="top-face" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#FFB6FF"/>
+      <stop offset="100%" stop-color="#D56CFF"/>
+    </linearGradient>
+    <linearGradient id="front-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C75DFF"/>
+      <stop offset="100%" stop-color="#8E2FE5"/>
+    </linearGradient>
+    <linearGradient id="front-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6521A8"/>
+      <stop offset="100%" stop-color="#3B0F7D"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="#09060F"/>
-  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#37204D" stroke-width="2"/>
-  <text x="30" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#F8F7FB" text-anchor="middle">I</text>
-  <circle cx="42" cy="42" r="5" fill="url(#dot)"/>
+  <!-- Top face (light pink-purple) -->
+  <polygon points="32,8 52,20 32,30 12,20" fill="url(#top-face)"/>
+  <!-- Front-left face (medium purple) -->
+  <polygon points="12,20 32,30 32,52 12,40" fill="url(#front-left)"/>
+  <!-- Front-right face (dark purple) -->
+  <polygon points="52,20 52,40 32,52 32,30" fill="url(#front-right)"/>
+  <!-- Edge highlight lines for 3D depth -->
+  <line x1="32" y1="8" x2="32" y2="30" stroke="rgba(255,242,255,0.18)" stroke-width="0.6"/>
+  <line x1="32" y1="30" x2="32" y2="52" stroke="rgba(0,0,0,0.2)" stroke-width="0.6"/>
 </svg>

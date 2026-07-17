@@ -119,13 +119,29 @@ export function JourneyScroll() {
         return () => ScrollTrigger.removeEventListener('refresh', onRefresh)
       })
 
-      gsap.utils.toArray<HTMLElement>('.jr-step-inner').forEach((el) => {
-        gsap.from(el, {
-          y: 48,
-          autoAlpha: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      /* Desktop step reveal: subtle fade-up (desktop has the route animation as main effect) */
+      mm.add('(min-width: 768px)', () => {
+        gsap.utils.toArray<HTMLElement>('.jr-step-inner').forEach((el) => {
+          gsap.from(el, {
+            y: 40,
+            autoAlpha: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          })
+        })
+      })
+
+      /* Mobile step reveal: alternating slide from left and right */
+      mm.add('(max-width: 767px)', () => {
+        gsap.utils.toArray<HTMLElement>('.jr-step-inner').forEach((el, i) => {
+          gsap.from(el, {
+            x: i % 2 === 0 ? -65 : 65,
+            autoAlpha: 0,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+          })
         })
       })
 

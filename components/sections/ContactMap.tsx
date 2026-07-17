@@ -23,7 +23,7 @@ export function ContactMap() {
     <section className="border-t border-line-2 bg-ink">
       <div className="mx-auto grid w-[min(94%,80rem)] items-stretch md:grid-cols-2" style={{ minHeight: '50vh' }}>
         {/* Left: contact details on Carbon surface */}
-        <div className="flex flex-col justify-center gap-6 bg-ink-2 p-10 md:p-14">
+        <div className="sr-fade-left flex flex-col justify-center gap-6 bg-ink-2 p-10 md:p-14">
           <p className="text-xs uppercase tracking-[0.35em] text-fg-3">( Find us )</p>
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Four time zones.

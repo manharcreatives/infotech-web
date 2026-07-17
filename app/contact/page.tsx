@@ -7,9 +7,17 @@ import { EmployerMarquee } from '@/components/sections/EmployerMarquee'
 import { ContactMap } from '@/components/sections/ContactMap'
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: 'Contact Us — Free Career Consultation',
   description:
-    'Book a free consultation with InfoTech Placement LLC. We operate 24/7 across the US, Canada, UK and New Zealand. A real consultant answers, any hour.',
+    'Book a free career consultation with InfoTech Placement LLC. We operate 24/7 across the US, Canada, UK and New Zealand. A real consultant answers any hour — not a chatbot.',
+  keywords: [
+    'free career consultation',
+    'book career consultation',
+    'contact career placement company',
+    'career counseling appointment',
+    'job placement consultation',
+    '24/7 career support',
+  ],
   alternates: { canonical: '/contact' },
 }
 
@@ -32,7 +40,7 @@ export default function ContactPage() {
 
       <section className="bg-ink-2 py-24 md:py-32">
         <div className="mx-auto grid w-[min(94%,80rem)] gap-16 md:grid-cols-[1fr_1.3fr]">
-          <div>
+          <div className="sr-fade-left">
             <ClipRevealText as="p" className="mb-8 text-xs uppercase tracking-[0.35em] text-fg-3">
               ( Reach us directly )
             </ClipRevealText>

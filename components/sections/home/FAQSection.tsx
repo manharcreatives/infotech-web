@@ -2,23 +2,169 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { faqs, faqCategories } from '@/content/site'
+import { faqs, faqCategories, type FaqCategory } from '@/content/site'
 import { cn } from '@/lib/utils'
 import { SplitLines } from '@/components/motion/SplitLines'
 
 /**
- * Two-column FAQ (Phase 3 redesign):
- *  - Left column is sticky: heading, category navigation (anchor links)
- *    and a small stat block — no blank space at any scroll position.
- *  - Right column groups the accordion into themed clusters.
- * Accordion open/close animation unchanged (grid-rows + plus/cross morph).
+ * Two-column FAQ:
+ *  Desktop: Left column sticky (heading, category nav, stat block)
+ *           Right column groups accordion by category.
+ *  Mobile:  Category-level accordion — tap a category header to expand
+ *           all Q&As within it. Background image covers the full section.
  */
 export function FAQSection() {
   const [openQuestion, setOpenQuestion] = useState<string | null>(faqs[0]?.question ?? null)
+  const [openCategoryMobile, setOpenCategoryMobile] = useState<FaqCategory | null>(null)
 
   return (
     <section className="relative bg-ink-2 py-28 md:py-40" id="faq">
-      <div className="mx-auto grid w-[min(94%,80rem)] gap-14 md:grid-cols-[1fr_1.6fr]">
+
+      {/* ── Mobile full-section background (hidden on desktop) ── */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden md:hidden">
+        <Image
+          src="/images/sections/faq-bg.webp"
+          alt=""
+          fill
+          unoptimized
+          className="size-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink-2/75 via-ink-2/80 to-ink-2" />
+      </div>
+
+      {/* ══════════════════════════════════════════
+          MOBILE LAYOUT — category accordion
+      ══════════════════════════════════════════ */}
+      <div className="relative z-10 mx-auto w-[min(94%,80rem)] md:hidden">
+        <p className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
+          ( Questions )
+        </p>
+        <h2 className="font-display text-3xl font-semibold tracking-tight">
+          Everything people ask before they say yes.
+        </h2>
+
+        {/* Stat pills */}
+        <div className="mt-8 flex gap-4">
+          <div className="rounded-xl border border-line-2 bg-surface/50 px-5 py-4">
+            <p className="font-display text-2xl font-semibold tracking-tight text-fg">{faqs.length}</p>
+            <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-fg-3">Questions answered</p>
+          </div>
+          <div className="rounded-xl border border-line-2 bg-surface/50 px-5 py-4">
+            <p className="font-display text-2xl font-semibold tracking-tight text-fg">24/7</p>
+            <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-fg-3">For everything else</p>
+          </div>
+        </div>
+
+        {/* Category accordion */}
+        <div className="mt-10 divide-y divide-line-2 border-y border-line-2">
+          {faqCategories.map((cat) => {
+            const items = faqs.filter((f) => f.category === cat)
+            const isCatOpen = openCategoryMobile === cat
+            return (
+              <div key={cat}>
+                {/* Category header button */}
+                <button
+                  onClick={() => setOpenCategoryMobile(isCatOpen ? null : cat)}
+                  aria-expanded={isCatOpen}
+                  className="flex w-full items-center justify-between py-5 text-left"
+                >
+                  <span
+                    className={cn(
+                      'font-display text-lg font-semibold tracking-tight transition-colors duration-300',
+                      isCatOpen ? 'text-glow' : 'text-fg'
+                    )}
+                  >
+                    {cat}
+                  </span>
+                  <span
+                    className={cn(
+                      'relative grid size-9 shrink-0 place-items-center rounded-full border transition-all duration-300',
+                      isCatOpen ? 'border-glow' : 'border-line'
+                    )}
+                  >
+                    <span className="absolute h-px w-3.5 bg-fg-2" />
+                    <span
+                      className={cn(
+                        'absolute h-px w-3.5 bg-fg-2 transition-transform duration-500',
+                        isCatOpen ? 'rotate-0' : 'rotate-90'
+                      )}
+                    />
+                  </span>
+                </button>
+
+                {/* Category content: all Q&As for this category */}
+                <div
+                  className={cn(
+                    'grid transition-[grid-template-rows] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+                    isCatOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <div className="divide-y divide-line-2/60 pb-4">
+                      {items.map((faq) => {
+                        const open = openQuestion === faq.question
+                        return (
+                          <div key={faq.question}>
+                            <button
+                              onClick={() => setOpenQuestion(open ? null : faq.question)}
+                              aria-expanded={open}
+                              className="flex w-full items-center justify-between gap-4 py-4 text-left"
+                            >
+                              <span
+                                className={cn(
+                                  'text-sm font-medium leading-snug transition-colors duration-300',
+                                  open ? 'text-glow' : 'text-fg-2'
+                                )}
+                              >
+                                {faq.question}
+                              </span>
+                              <span
+                                className={cn(
+                                  'relative grid size-7 shrink-0 place-items-center rounded-full border border-line/60 transition-colors duration-300',
+                                  open && 'border-glow/60'
+                                )}
+                              >
+                                <span className="absolute h-px w-3 bg-fg-3" />
+                                <span
+                                  className={cn(
+                                    'absolute h-px w-3 bg-fg-3 transition-transform duration-500',
+                                    open ? 'rotate-0' : 'rotate-90'
+                                  )}
+                                />
+                              </span>
+                            </button>
+                            <div
+                              className={cn(
+                                'grid transition-[grid-template-rows] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+                                open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                              )}
+                            >
+                              <div className="overflow-hidden">
+                                <p className="max-w-xl pb-5 text-sm leading-relaxed text-fg-3">
+                                  {faq.answer}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <p className="mt-8 text-sm leading-relaxed text-fg-3">
+          Still deciding? Ask us directly. We operate around the clock, so a real person answers whenever you write.
+        </p>
+      </div>
+
+      {/* ══════════════════════════════════════════
+          DESKTOP LAYOUT — two-column (unchanged)
+      ══════════════════════════════════════════ */}
+      <div className="mx-auto hidden w-[min(94%,80rem)] gap-14 md:grid md:grid-cols-[1fr_1.6fr]">
         {/* ── Left rail (sticky) ── */}
         <div className="relative">
           {/* artistic backdrop for the heading side only (not the Q&A) */}

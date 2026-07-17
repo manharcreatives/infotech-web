@@ -63,6 +63,18 @@ export function PageHero({
           )
       })
 
+      /* Parallax: content drifts upward as user scrolls, creating depth */
+      gsap.to(ref.current!.querySelector('.page-hero-inner'), {
+        yPercent: -18,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: ref.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.5,
+        },
+      })
+
       return () => {
         unsubscribe()
         split.revert()
@@ -104,7 +116,8 @@ export function PageHero({
 
       <CinematicMask />
 
-      <div className="absolute inset-x-0 top-1/2 z-10 mx-auto w-[min(94%,80rem)] -translate-y-[54%]">
+      <div className="absolute inset-x-0 top-1/2 z-10 -translate-y-[54%]">
+        <div className="page-hero-inner mx-auto w-[min(94%,80rem)]">
         <ScrambleText
           as="p"
           className="mb-6 text-xs uppercase tracking-[0.35em] text-fg-3"
@@ -137,6 +150,7 @@ export function PageHero({
         </div>
       )}
         {children}
+        </div>
       </div>
     </section>
   )

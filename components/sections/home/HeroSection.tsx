@@ -187,7 +187,7 @@ export function HeroSection() {
                   className="flex items-center gap-6 pr-6 text-sm tracking-[0.15em] text-fg-3 uppercase whitespace-nowrap"
                 >
                   {role}
-                  <span className="text-brand">✦</span>
+                  <span aria-hidden="true" className="text-fg-3/40">/</span>
                 </span>
               ))}
             </div>

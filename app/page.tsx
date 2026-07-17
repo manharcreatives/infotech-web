@@ -14,6 +14,18 @@ import { BlogPreview } from '@/components/sections/home/BlogPreview'
 import { ReferTicket } from '@/components/sections/home/ReferTicket'
 
 export const metadata: Metadata = {
+  title: 'Career Consulting & Job Placement | US, Canada, UK, New Zealand',
+  description:
+    'Get placed in a full-time role across the US, Canada, UK or New Zealand. InfoTech Placement LLC offers structured resume marketing, LinkedIn branding, interview prep and a written interview guarantee.',
+  keywords: [
+    'job placement guarantee',
+    'career consulting USA',
+    'resume marketing service',
+    'interview preparation coaching',
+    'IT job placement',
+    'non-IT career placement',
+    'job placement Canada UK New Zealand',
+  ],
   alternates: { canonical: '/' },
 }
 

@@ -5,9 +5,17 @@ import { TestimonialsMarquee } from '@/components/sections/home/TestimonialsMarq
 import { CTASection } from '@/components/sections/home/CTASection'
 
 export const metadata: Metadata = {
-  title: 'For Talent',
+  title: 'For Candidates — Job Placement Program',
   description:
-    'A structured placement program: resume, LinkedIn, marketing, interview prep, offer support and post-placement care, handled end to end.',
+    'A structured end-to-end placement program for IT and Non-IT professionals in the US, Canada, UK and New Zealand. Resume optimization, LinkedIn branding, resume marketing, interview prep and offer support — until you are placed.',
+  keywords: [
+    'job placement for candidates',
+    'IT job placement program',
+    'career placement for professionals',
+    'resume to job placement',
+    'structured placement program',
+    'job placement IT non-IT',
+  ],
   alternates: { canonical: '/talent' },
 }
 

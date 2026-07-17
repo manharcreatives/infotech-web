@@ -40,7 +40,10 @@ export function ProcessTracks() {
                   i % 2 === 0 ? '' : 'md:[direction:rtl]'
                 )}
               >
-                <SpotlightCard className="p-7 md:[direction:ltr]">
+                <SpotlightCard
+                  className={cn('p-7 md:[direction:ltr]', i % 2 === 0 ? 'sr-fade-left' : 'sr-fade-right')}
+                  style={{ transitionDelay: `${(i % 3) * 60}ms` }}
+                >
                   <div className="flex items-baseline gap-4">
                     <span className="font-display text-2xl font-bold text-brand">
                       {String(i + 1).padStart(2, '0')}

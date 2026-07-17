@@ -30,7 +30,8 @@ export function ServiceTracks() {
           {candidateServices.map((s, i) => (
             <article
               key={s.title}
-              className="group grid gap-6 border border-line bg-surface/40 p-8 transition-colors duration-500 hover:border-glow/40 hover:bg-surface/70 md:grid-cols-[6rem_1.2fr_1fr] md:gap-10"
+              className="sr-fade-up group grid gap-6 border border-line bg-surface/40 p-8 transition-colors duration-500 hover:border-glow/40 hover:bg-surface/70 md:grid-cols-[6rem_1.2fr_1fr] md:gap-10"
+              style={{ transitionDelay: `${i * 70}ms` }}
             >
               <span className="text-stroke font-display text-4xl font-bold md:text-5xl">
                 {String(i + 1).padStart(2, '0')}

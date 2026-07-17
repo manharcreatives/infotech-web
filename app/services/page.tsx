@@ -6,9 +6,19 @@ import { FAQSection } from '@/components/sections/home/FAQSection'
 import { CTASection } from '@/components/sections/home/CTASection'
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'Career Services — Resume, LinkedIn, Interview & Placement',
   description:
-    'Seven career services in one structured program: resume, LinkedIn, marketing, interview prep, counseling and placement with post-placement support.',
+    'Seven career services in one structured program: resume optimization, LinkedIn branding, resume marketing, interview preparation, career counseling and job placement with post-placement support across US, Canada, UK and New Zealand.',
+  keywords: [
+    'resume optimization service',
+    'LinkedIn profile optimization',
+    'resume marketing',
+    'interview preparation service',
+    'career counseling',
+    'job placement service',
+    'IT career services',
+    'non-IT placement services',
+  ],
   alternates: { canonical: '/services' },
 }
 

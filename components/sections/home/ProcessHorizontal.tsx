@@ -98,6 +98,18 @@ export function ProcessHorizontal() {
         )
       })
 
+      /* Mobile: staggered fade-up for the vertical card stack */
+      mm.add('(max-width: 767px)', () => {
+        gsap.from('.process-card', {
+          y: 70,
+          autoAlpha: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.process-track', start: 'top 85%', once: true },
+        })
+      })
+
       return () => mm.revert()
     },
     { scope: ref }

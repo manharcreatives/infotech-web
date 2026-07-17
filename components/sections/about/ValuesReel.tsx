@@ -187,7 +187,7 @@ export function ValuesReel() {
         </h2>
         <ol className="space-y-10">
           {coreValues.map((cv, i) => (
-            <li key={cv.title} className="relative overflow-hidden rounded-2xl border border-line-2 pl-5 pr-5 pt-10 pb-8">
+            <li key={cv.title} className="sr-fade-up relative overflow-hidden rounded-2xl border border-line-2 pl-5 pr-5 pt-10 pb-8" style={{ transitionDelay: `${(i % 4) * 60}ms` }}>
               <Image
                 src={`/images/values/value-${String(i + 1).padStart(2, '0')}.webp`}
                 alt=""

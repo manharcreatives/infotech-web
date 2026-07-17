@@ -10,9 +10,16 @@ import { Button } from '@/components/ui/Button'
 import { whatDrivesUs, promise, site } from '@/content/site'
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Us — Career Placement Company',
   description:
-    'Founded in November 2025, InfoTech Placement LLC connects professionals with employers across the US, Canada, UK and New Zealand, IT and Non-IT alike.',
+    'Founded November 2025, InfoTech Placement LLC is a career consulting and placement company serving IT and Non-IT professionals across the US, Canada, UK and New Zealand with a structured 11-step program.',
+  keywords: [
+    'career placement company',
+    'about InfoTech Placement',
+    'IT recruitment company',
+    'career consulting firm',
+    'job placement agency US',
+  ],
   alternates: { canonical: '/about' },
 }
 

@@ -6,9 +6,19 @@ import { CTASection } from '@/components/sections/home/CTASection'
 import { blogPosts } from '@/content/blog'
 
 export const metadata: Metadata = {
-  title: 'Insights & Resources',
+  title: 'Career Insights & Job Search Resources',
   description:
-    'Practical guides on international job placement, resumes that get read, interview preparation and career strategy across the US, Canada, UK and New Zealand.',
+    'Practical, no-hype guides on international job placement, resume optimization, interview preparation and career strategy for the US, Canada, UK and New Zealand job markets.',
+  keywords: [
+    'career insights',
+    'job search tips',
+    'resume tips',
+    'interview preparation guide',
+    'international job placement guide',
+    'career strategy',
+    'how to get job USA',
+    'career blog',
+  ],
   alternates: { canonical: '/blog' },
 }
 
@@ -31,11 +41,12 @@ export default function BlogIndexPage() {
 
       <section className="bg-ink-2 py-20 md:py-28">
         <div className="mx-auto grid w-[min(94%,80rem)] gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {blogPosts.map((post, i) => (
             <TransitionLink
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group flex flex-col overflow-hidden border border-line bg-surface/40 transition-colors duration-500 hover:border-glow/40"
+              className="sr-fade-up group flex flex-col overflow-hidden border border-line bg-surface/40 transition-colors duration-500 hover:border-glow/40"
+              style={{ transitionDelay: `${(i % 3) * 80}ms` }}
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand/25 via-ink to-glow/10">
                 <Image

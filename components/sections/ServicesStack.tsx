@@ -64,6 +64,25 @@ export function ServicesStack() {
         })
       })
 
+      /* Mobile: each service card slides up and fades in as it enters view */
+      mm.add('(max-width: 767px)', () => {
+        gsap.utils.toArray<HTMLElement>('.svc-panel').forEach((panel, i) => {
+          const card = panel.querySelector('.svc-card')
+          if (!card) return
+          gsap.from(card, {
+            y: 80,
+            autoAlpha: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top 87%',
+              once: true,
+            },
+          })
+        })
+      })
+
       return () => mm.revert()
     },
     { scope: ref }

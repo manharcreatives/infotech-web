@@ -20,8 +20,16 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    keywords: [post.category, 'career consulting', 'job placement', 'InfoTech Placement'],
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: { type: 'article', title: post.title, description: post.description },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.description,
+      publishedTime: post.date,
+      authors: ['InfoTech Placement LLC'],
+      tags: [post.category, 'career consulting', 'job placement'],
+    },
   }
 }
 

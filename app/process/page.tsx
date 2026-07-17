@@ -5,9 +5,17 @@ import { StatsSection } from '@/components/sections/home/StatsSection'
 import { CTASection } from '@/components/sections/home/CTASection'
 
 export const metadata: Metadata = {
-  title: 'Process',
+  title: 'Our Process — 11-Step Career Placement Journey',
   description:
-    'The 11-step candidate journey, published in full. Every stage tracked and visible to you, from registration to post-placement support.',
+    'The complete 11-step candidate journey published in full: registration, career consultation, resume optimization, LinkedIn branding, resume marketing, interview preparation, placement and post-placement support.',
+  keywords: [
+    '11 step placement process',
+    'career placement journey',
+    'how job placement works',
+    'recruitment process',
+    'career consulting steps',
+    'placement program process',
+  ],
   alternates: { canonical: '/process' },
 }
 

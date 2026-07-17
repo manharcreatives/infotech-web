@@ -7,9 +7,16 @@ import { ReferralForm } from '@/components/forms/ReferralForm'
 import { CTASection } from '@/components/sections/home/CTASection'
 
 export const metadata: Metadata = {
-  title: 'Refer & Earn',
+  title: 'Refer & Earn — Earn Up to $300 Per Referral',
   description:
-    'Know a talented professional looking for their next opportunity? Refer them to InfoTech Placement LLC and earn up to $300 when they are successfully placed.',
+    'Refer a professional to InfoTech Placement LLC and earn up to $300 when they are successfully placed. Simple, rewarding — and you help someone find their next opportunity.',
+  keywords: [
+    'job placement referral program',
+    'earn money referring candidates',
+    'career placement referral',
+    'refer and earn job placement',
+    'recruitment referral bonus',
+  ],
   alternates: { canonical: '/refer' },
 }
 
@@ -67,7 +74,7 @@ export default function ReferPage() {
           </SplitLines>
           <div className="grid gap-4 sm:grid-cols-3">
             {steps.map((s, i) => (
-              <SpotlightCard key={s.title} className="p-8">
+              <SpotlightCard key={s.title} className="sr-fade-up p-8" style={{ transitionDelay: `${i * 90}ms` }}>
                 <span className="text-stroke font-display text-4xl font-bold">
                   {String(i + 1).padStart(2, '0')}
                 </span>
