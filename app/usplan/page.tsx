@@ -21,6 +21,8 @@ export default function USPlanPage() {
       <PageHero
         index="08"
         eyebrow="US Plans"
+        bgImage="/images/heroes/hero-usplan.webp"
+        bgPosition="right center"
         title={
           <>
             The Right Connection

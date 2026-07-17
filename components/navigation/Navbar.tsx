@@ -73,7 +73,7 @@ export function Navbar() {
     <>
       <header
         ref={barRef}
-        className="fixed inset-x-0 top-5 z-100 mx-auto flex w-[min(94%,68rem)] items-center justify-between px-2 [perspective:800px]"
+        className="fixed inset-x-0 top-5 z-100 mx-auto flex w-[min(96%,78rem)] items-center justify-between px-2 [perspective:800px]"
       >
         <div
           className={cn(
@@ -84,15 +84,32 @@ export function Navbar() {
           <div ref={logoRef} className="[transform-style:preserve-3d]">
             <TransitionLink
               href="/"
-              className="relative block"
+              className="relative block h-14 w-[168px]"
+              aria-label="InfoTech Placement LLC — home"
             >
+              {/* Dark surface (top of page / over hero video) → white-font logo */}
               <Image
-                src="/images/Horizontal_Primary LightBG_ITP_Logo.png"
+                src="/images/Horizontal_Primary DarkBG_ITP_Logo.png"
                 alt="InfoTech Placement LLC"
                 width={180}
                 height={60}
-                className="h-14 w-auto"
+                className={cn(
+                  'absolute inset-0 h-14 w-auto transition-opacity duration-500',
+                  scrolled ? 'opacity-0' : 'opacity-100'
+                )}
                 priority
+              />
+              {/* Glass / light navbar section visible → black-font logo */}
+              <Image
+                src="/images/Horizontal_Primary LightBG_ITP_Logo.png"
+                alt=""
+                aria-hidden="true"
+                width={180}
+                height={60}
+                className={cn(
+                  'absolute inset-0 h-14 w-auto transition-opacity duration-500',
+                  scrolled ? 'opacity-100' : 'opacity-0'
+                )}
               />
             </TransitionLink>
           </div>

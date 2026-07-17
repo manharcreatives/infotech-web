@@ -21,6 +21,8 @@ export default function CanadaPlanPage() {
       <PageHero
         index="08"
         eyebrow="Canada Plans"
+        bgImage="/images/heroes/hero-canadaplan.webp"
+        bgPosition="right center"
         title={
           <>
             The Right Connection

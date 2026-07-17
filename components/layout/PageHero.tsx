@@ -104,7 +104,7 @@ export function PageHero({
 
       <CinematicMask />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[min(94%,80rem)] pb-20 md:pb-28">
+      <div className="absolute inset-x-0 top-1/2 z-10 mx-auto w-[min(94%,80rem)] -translate-y-[54%]">
         <ScrambleText
           as="p"
           className="mb-6 text-xs uppercase tracking-[0.35em] text-fg-3"
