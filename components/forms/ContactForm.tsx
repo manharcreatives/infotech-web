@@ -9,7 +9,7 @@ type Status = 'idle' | 'sending' | 'sent'
 /**
  * Candidate lead-capture form per SRS §5.5.2:
  * Full Name, Email Address, Phone Number, Target Job Title,
- * Brief Description, Submit.
+ * Brief Description, Submit
  *
  * Editorial "form ledger" styling: numbered rows, micro-labels, and a
  * gradient underline that sweeps in on focus — same blueprint language
