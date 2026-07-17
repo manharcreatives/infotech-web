@@ -181,8 +181,8 @@ export function ValuesReel() {
 
       {/* ── Mobile: stacked ledger ── */}
       <div className="mx-auto w-[min(94%,80rem)] py-24 md:hidden">
-        <p className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">( Values )</p>
-        <h2 className="mb-12 font-display text-4xl font-semibold tracking-tight">
+        <p className="sr-fade-up mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">( Values )</p>
+        <h2 className="sr-fade-up mb-12 font-display text-4xl font-semibold tracking-tight" style={{ transitionDelay: '60ms' }}>
           Eight values. No posters, just practice.
         </h2>
         <ol className="space-y-10">

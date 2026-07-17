@@ -62,7 +62,7 @@ export default async function BlogPostPage({
         />
 
         {/* Header */}
-        <header className="mx-auto w-[min(94%,52rem)]">
+        <header className="sr-fade-up mx-auto w-[min(94%,52rem)]">
           <p className="mb-5 text-xs uppercase tracking-[0.3em] text-brand">{post.category}</p>
           <h1 className="font-display text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-[1.08] tracking-tight">
             {post.title}
@@ -95,7 +95,7 @@ export default async function BlogPostPage({
           <p className="text-lg leading-relaxed text-fg-2">{post.excerpt}</p>
 
           {post.sections.map((section, i) => (
-            <div key={section.heading}>
+            <div key={section.heading} className="sr-fade-up" style={{ transitionDelay: `${i * 60}ms` }}>
               <h2 className="mt-12 font-display text-2xl font-semibold tracking-tight md:text-3xl">
                 {section.heading}
               </h2>
@@ -139,7 +139,7 @@ export default async function BlogPostPage({
           <p className="mt-5 text-base leading-relaxed text-fg-2">{post.takeaway}</p>
 
           {/* Closing CTA */}
-          <div className="mt-14 border border-line bg-surface/40 p-8 text-center">
+          <div className="sr-fade-up mt-14 border border-line bg-surface/40 p-8 text-center">
             <p className="font-display text-2xl font-semibold tracking-tight">
               Ready to move from reading to placed?
             </p>
@@ -160,11 +160,12 @@ export default async function BlogPostPage({
               ( Related articles )
             </p>
             <div className="grid gap-6 md:grid-cols-3">
-              {related.map((r) => (
+              {related.map((r, i) => (
                 <TransitionLink
                   key={r.slug}
                   href={`/blog/${r.slug}`}
-                  className="group border border-line bg-surface/40 p-6 transition-colors duration-500 hover:border-glow/40"
+                  className="sr-fade-up group border border-line bg-surface/40 p-6 transition-colors duration-500 hover:border-glow/40"
+                  style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <p className="text-xs uppercase tracking-[0.2em] text-fg-3">{r.category}</p>
                   <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight transition-colors duration-300 group-hover:text-glow">

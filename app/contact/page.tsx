@@ -83,7 +83,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <ContactForm />
+          <div className="sr-fade-right">
+            <ContactForm />
+          </div>
         </div>
       </section>
 

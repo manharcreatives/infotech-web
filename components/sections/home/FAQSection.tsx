@@ -36,15 +36,15 @@ export function FAQSection() {
           MOBILE LAYOUT — category accordion
       ══════════════════════════════════════════ */}
       <div className="relative z-10 mx-auto w-[min(94%,80rem)] md:hidden">
-        <p className="mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
+        <p className="sr-fade-up mb-4 text-xs uppercase tracking-[0.35em] text-fg-3">
           ( Questions )
         </p>
-        <h2 className="font-display text-3xl font-semibold tracking-tight">
+        <h2 className="sr-fade-up font-display text-3xl font-semibold tracking-tight" style={{ transitionDelay: '60ms' }}>
           Everything people ask before they say yes.
         </h2>
 
         {/* Stat pills */}
-        <div className="mt-8 flex gap-4">
+        <div className="sr-fade-up mt-8 flex gap-4" style={{ transitionDelay: '120ms' }}>
           <div className="rounded-xl border border-line-2 bg-surface/50 px-5 py-4">
             <p className="font-display text-2xl font-semibold tracking-tight text-fg">{faqs.length}</p>
             <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-fg-3">Questions answered</p>
@@ -56,7 +56,7 @@ export function FAQSection() {
         </div>
 
         {/* Category accordion */}
-        <div className="mt-10 divide-y divide-line-2 border-y border-line-2">
+        <div className="sr-fade-up mt-10 divide-y divide-line-2 border-y border-line-2" style={{ transitionDelay: '180ms' }}>
           {faqCategories.map((cat) => {
             const items = faqs.filter((f) => f.category === cat)
             const isCatOpen = openCategoryMobile === cat

@@ -39,7 +39,7 @@ export default function PricingPage() {
       <section className="bg-ink-2 py-24 md:py-32">
         <div className="mx-auto w-[min(94%,64rem)]">
           <div className="grid gap-4 md:grid-cols-3">
-            <SpotlightCard className="p-8">
+            <SpotlightCard className="sr-fade-up p-8" style={{ transitionDelay: '0ms' }}>
               <p className="text-xs uppercase tracking-[0.25em] text-fg-3">Step 1</p>
               <h2 className="mt-4 font-display text-xl font-semibold tracking-tight">
                 Free consultation
@@ -49,7 +49,7 @@ export default function PricingPage() {
                 you honestly what the program can do for you.
               </p>
             </SpotlightCard>
-            <SpotlightCard className="p-8">
+            <SpotlightCard className="sr-fade-up p-8" style={{ transitionDelay: '90ms' }}>
               <p className="text-xs uppercase tracking-[0.25em] text-fg-3">Step 2</p>
               <h2 className="mt-4 font-display text-xl font-semibold tracking-tight">
                 A scoped quote, in writing
@@ -59,7 +59,7 @@ export default function PricingPage() {
                 full cost, terms and guarantees in writing before you commit.
               </p>
             </SpotlightCard>
-            <SpotlightCard className="p-8">
+            <SpotlightCard className="sr-fade-up p-8" style={{ transitionDelay: '180ms' }}>
               <p className="text-xs uppercase tracking-[0.25em] text-fg-3">Step 3</p>
               <h2 className="mt-4 font-display text-xl font-semibold tracking-tight">
                 Covered by the guarantee

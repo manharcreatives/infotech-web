@@ -101,7 +101,8 @@ export default function AboutPage() {
               {whatDrivesUs.map((item, i) => (
                 <li
                   key={item}
-                  className="group flex items-baseline gap-5 border-b border-line-2 py-4 text-sm leading-relaxed text-fg-2 transition-colors duration-300 hover:text-fg"
+                  className="sr-fade-up group flex items-baseline gap-5 border-b border-line-2 py-4 text-sm leading-relaxed text-fg-2 transition-colors duration-300 hover:text-fg"
+                  style={{ transitionDelay: `${i * 60}ms` }}
                 >
                   <span className="text-stroke font-display text-lg font-bold transition-colors duration-300">
                     {String(i + 1).padStart(2, '0')}
@@ -111,7 +112,7 @@ export default function AboutPage() {
               ))}
             </ol>
           </div>
-          <div className="flex items-center">
+          <div className="sr-fade-left flex items-center" style={{ transitionDelay: '100ms' }}>
             <blockquote className="border-l-2 border-brand pl-8">
               <p className="font-display text-[clamp(1.3rem,2.6vw,2rem)] font-medium leading-[1.4] tracking-tight text-fg">
                 &ldquo;{promise}&rdquo;
