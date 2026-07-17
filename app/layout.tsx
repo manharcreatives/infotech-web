@@ -45,6 +45,14 @@ export const metadata: Metadata = {
     'non-IT placement',
     'placement with guarantee',
   ],
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png', sizes: '500x500' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: { url: '/icon.png', sizes: '500x500', type: 'image/png' },
+    shortcut: '/icon.png',
+  },
   openGraph: {
     type: 'website',
     siteName: site.name,
@@ -89,8 +97,8 @@ const organizationSchema = {
   logo: {
     '@type': 'ImageObject',
     url: `${site.url}/images/logo.png`,
-    width: '512',
-    height: '512',
+    width: '500',
+    height: '500',
   },
   image: `${site.url}/opengraph-image`,
   address: {
@@ -158,10 +166,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/images/logo.png" />
-      </head>
+      <head />
       <body className="bg-ink text-fg">
         <script
           type="application/ld+json"

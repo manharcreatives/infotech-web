@@ -33,24 +33,63 @@ export function usePageTransition() {
 
 /**
  * Manages a full-viewport overlay that expands from a clicked element's
- * position to cover the screen (like Podium's Flip transition), swaps the
- * route client-side underneath it, then contracts back out from the same
- * point to reveal the new page. Because the navigation is client-side (no
- * hard reload), this is one continuous overlay/timeline instead of two
- * separate animations bridged by a blank page load.
+ * position to cover the screen, swaps the route underneath it, then
+ * contracts back to reveal the new page.
+ *
+ * Robustness guarantees:
+ *  - Same-page clicks are silently ignored (no overlay at all).
+ *  - Browser back / forward (popstate) immediately kills any in-flight
+ *    animation and hides the overlay so the page is always accessible.
+ *  - A 3-second safety timeout forcibly clears the overlay if a
+ *    contract animation never fires (e.g. the pathname didn't change
+ *    because the server returned an error).
  */
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const pointRef = useRef({ cx: 0, cy: 0 })
   const transitioningRef = useRef(false)
   const isFirstRoute = useRef(true)
+  const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
   const pathname = usePathname()
 
+  /* ─── helpers ─────────────────────────────────────────────────── */
+  const clearOverlay = useCallback(() => {
+    const overlay = overlayRef.current
+    if (!overlay) return
+    if (safetyTimerRef.current) {
+      clearTimeout(safetyTimerRef.current)
+      safetyTimerRef.current = null
+    }
+    gsap.killTweensOf(overlay)
+    gsap.set(overlay, { display: 'none', clipPath: 'circle(0% at 50% 50%)' })
+    transitioningRef.current = false
+    setPageTransitionActive(false)
+  }, [])
+
+  /* ─── browser back / forward — kill overlay immediately ───────── */
+  useEffect(() => {
+    const handlePopState = () => {
+      if (transitioningRef.current) {
+        clearOverlay()
+      }
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [clearOverlay])
+
+  /* ─── navigate (called by TransitionLink / Button) ────────────── */
   const navigate = useCallback(
     (href: string, rect: RectLike) => {
       const overlay = overlayRef.current
-      if (!overlay || transitioningRef.current) return
+      if (!overlay) return
+
+      // Skip animation when already transitioning or same page
+      if (transitioningRef.current) return
+      if (href === window.location.pathname) {
+        router.push(href)
+        return
+      }
 
       transitioningRef.current = true
       setPageTransitionActive(true)
@@ -59,6 +98,12 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       const cx = rect.left + rect.width / 2
       const cy = rect.top + rect.height / 2
       pointRef.current = { cx, cy }
+
+      // Safety timeout: if the contract animation never fires within 3 s,
+      // force-clear the overlay so the user is never stuck on a black screen.
+      safetyTimerRef.current = setTimeout(() => {
+        clearOverlay()
+      }, 3000)
 
       gsap
         .timeline({
@@ -72,36 +117,43 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         })
         .to(overlay, {
           clipPath: `circle(${diagonal}px at ${cx}px ${cy}px)`,
-          duration: 0.7,
+          duration: 0.65,
           ease: 'power3.inOut',
         })
     },
-    [router]
+    [router, clearOverlay]
   )
 
-  /* --- Contract the overlay once the new route's content has mounted
-     underneath it. Skipped on the very first render (no prior expand). --- */
+  /* ─── contract overlay once new route mounts ───────────────────── */
   useEffect(() => {
     if (isFirstRoute.current) {
       isFirstRoute.current = false
       return
     }
-    if (!transitioningRef.current) return
 
+    // If an overlay is visible (whether or not transitioningRef is set),
+    // always contract it — this handles edge cases where the ref got out of
+    // sync with the actual overlay display state.
     const overlay = overlayRef.current
     if (!overlay) return
+
+    const isVisible = overlay.style.display === 'block'
+    if (!transitioningRef.current && !isVisible) return
 
     const { cx, cy } = pointRef.current
     const diagonal = Math.ceil(Math.hypot(window.innerWidth, window.innerHeight))
 
+    if (safetyTimerRef.current) {
+      clearTimeout(safetyTimerRef.current)
+      safetyTimerRef.current = null
+    }
+
+    gsap.killTweensOf(overlay)
+
     gsap
       .timeline({
         delay: 0.05,
-        onComplete: () => {
-          gsap.set(overlay, { display: 'none' })
-          transitioningRef.current = false
-          setPageTransitionActive(false)
-        },
+        onComplete: clearOverlay,
       })
       .set(overlay, {
         display: 'block',
@@ -109,9 +161,10 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       })
       .to(overlay, {
         clipPath: `circle(0% at ${cx}px ${cy}px)`,
-        duration: 0.6,
+        duration: 0.55,
         ease: 'power3.inOut',
       })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   return (
@@ -119,6 +172,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       {children}
       <div
         ref={overlayRef}
+        aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-[300] hidden bg-ink"
       />
     </TransitionContext.Provider>

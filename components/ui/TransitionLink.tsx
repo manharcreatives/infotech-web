@@ -22,7 +22,9 @@ export function TransitionLink({
   const { navigate } = usePageTransition()
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (e.metaKey || e.ctrlKey) return
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    // Same-page: let the browser handle it (no black overlay)
+    if (href === window.location.pathname) return
     e.preventDefault()
     const rect = ref.current?.getBoundingClientRect() ?? {
       left: window.innerWidth / 2,
