@@ -47,21 +47,27 @@ export function ReferralForm() {
     }
 
     try {
+      const startedAt = Date.now()
       const res = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify(payload),
       })
 
       const result = (await res.json()) as { success: boolean; error?: string }
+      const elapsed = Date.now() - startedAt
+      const remaining = Math.max(0, 1500 - elapsed)
 
       if (result.success) {
+        await new Promise((r) => setTimeout(r, remaining))
         setStatus('sent')
         formRef.current?.reset()
       } else {
+        await new Promise((r) => setTimeout(r, remaining))
         setErrorMsg(result.error || 'Something went wrong. Please try again.')
         setStatus('error')
       }
     } catch {
+      await new Promise((r) => setTimeout(r, 1500))
       setErrorMsg('Network error. Please check your connection and try again.')
       setStatus('error')
     }
@@ -69,11 +75,13 @@ export function ReferralForm() {
 
   if (status === 'sent') {
     return (
-      <div className="glass flex min-h-80 flex-col items-center justify-center rounded-2xl p-10 text-center">
-        <span className="grid size-14 place-items-center rounded-full bg-success/15 text-2xl">
-          ✓
+      <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-line bg-surface/30 p-10 text-center backdrop-blur-sm">
+        <span className="success-check grid size-16 place-items-center rounded-full bg-success shadow-[0_0_48px_8px_rgba(34,197,94,0.45)]">
+          <svg className="size-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </span>
-        <p className="mt-6 font-display text-2xl font-semibold tracking-tight">
+        <p className="mt-6 font-display text-2xl font-semibold tracking-tight text-fg">
           Referral received.
         </p>
         <p className="mt-2 max-w-xs text-sm text-fg-3">
@@ -85,7 +93,18 @@ export function ReferralForm() {
   }
 
   return (
-    <div>
+    <div className="relative">
+      {status === 'sending' && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-2xl bg-ink/80 backdrop-blur-sm">
+          <div className="spinner-loader">
+            <div className="circle" />
+            <div className="circle" />
+            <div className="circle" />
+            <div className="circle" />
+          </div>
+          <p className="mt-6 text-sm tracking-[0.2em] text-fg-3 uppercase">Sending…</p>
+        </div>
+      )}
       {status === 'error' && errorMsg && (
         <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {errorMsg}
@@ -135,7 +154,7 @@ export function ReferralForm() {
 
         <div className="flex flex-wrap items-center gap-6 pt-2">
           <Button type="submit">
-            {status === 'sending' ? 'Sending…' : 'Submit referral'}
+            Submit referral
           </Button>
           <p className="max-w-xs text-xs leading-relaxed text-fg-3">
             Please make sure you have their permission before sharing

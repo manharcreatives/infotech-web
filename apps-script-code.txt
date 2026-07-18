@@ -51,6 +51,12 @@ function doPost(e) {
       resumeLink || "Not provided" // G: Resume Link
     ]);
 
+    // Force phone cell as plain text so + sign stays
+    var lastRow = sheet.getLastRow();
+    var phoneCell = sheet.getRange(lastRow, 4);
+    phoneCell.setNumberFormat('@');
+    phoneCell.setValue(data.phone);
+
     // Email notification to BOTH accounts
     var subject = "New Enquiry from " + data.fullName;
     var body =

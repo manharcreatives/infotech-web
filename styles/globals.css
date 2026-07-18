@@ -506,3 +506,46 @@ body {
 .sr-stagger > *:nth-child(2) { transition-delay: 80ms; }
 .sr-stagger > *:nth-child(3) { transition-delay: 160ms; }
 .sr-stagger > *:nth-child(4) { transition-delay: 240ms; }
+
+/* ---------------------------------- */
+/* Spinner Loader — 4 circles + rotate */
+/* ---------------------------------- */
+.spinner-loader {
+  --dim: 3rem;
+  width: var(--dim);
+  height: var(--dim);
+  position: relative;
+  animation: spinner-spin 2s linear infinite;
+}
+
+.spinner-loader .circle {
+  --circle-dim: 1.2rem;
+  width: var(--circle-dim);
+  height: var(--circle-dim);
+  background: var(--color-fg);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.spinner-loader .circle:nth-child(1) { top: 0; left: 0; }
+.spinner-loader .circle:nth-child(2) { top: 0; right: 0; }
+.spinner-loader .circle:nth-child(3) { bottom: 0; left: 0; }
+.spinner-loader .circle:nth-child(4) { bottom: 0; right: 0; }
+
+@keyframes spinner-spin {
+  0%       { transform: scale(1) rotate(0); }
+  20%, 25% { transform: scale(1.3) rotate(90deg); }
+  45%, 50% { transform: scale(1) rotate(180deg); }
+  70%, 75% { transform: scale(1.3) rotate(270deg); }
+  95%, 100% { transform: scale(1) rotate(360deg); }
+}
+
+@keyframes success-check {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-check {
+  animation: success-check 0.5s var(--ease-out-expo) both;
+}

@@ -9,6 +9,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob: https:;
   font-src 'self';
+  media-src https://res.cloudinary.com;
   frame-src
     https://www.google.com
     https://www.googletagmanager.com;
