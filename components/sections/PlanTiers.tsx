@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { Check, ShieldCheck, Sparkles } from 'lucide-react'
+import { Check, X, ShieldCheck, Sparkles } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { Button } from '@/components/ui/Button'
 
@@ -9,92 +9,72 @@ import { Button } from '@/components/ui/Button'
  * The three US enrollment plans as a tiered stage: the Advance plan is
  * physically elevated with a gradient keyline, glow and "Most Popular"
  * seal; Basic and Premium flank it.
- * Client-supplied tiers (July 2026) — copy verbatim.
+ *
+ * Every card shows the full feature matrix with ✓ (included) / ✗ (not
+ * included) per tier, verbatim from the client's US Plans sheet (July 2026).
  */
+
+/** Master feature order — shared across all three tiers so the ✓/✗ columns
+ *  always line up by index. */
+const FEATURES = [
+  'Resume Preparation',
+  'Resume Understanding Session (1:1)',
+  '8 Months of Marketing',
+  'Dedicated Recruiter',
+  'Technical Training',
+  'TQC Session',
+  'JDC Session',
+  'Assessment Support in Coding',
+  'LinkedIn Optimization',
+  'Resume Promotion Service',
+  'Email Correspondence Assistance',
+]
+
+const GUARANTEES = [
+  'Money-Back Guarantee',
+  '120 Working Days Job Guarantee',
+  'Flat 60% Refund on Upfront Amount',
+]
 
 interface Plan {
   name: string
   price: string
   payment: string
-  features: string[]
-  guarantees?: string[]
+  /** Inclusion flags, index-aligned to FEATURES. */
+  features: boolean[]
+  /** Inclusion flags, index-aligned to GUARANTEES. */
+  guarantees: boolean[]
   featured?: boolean
   badge?: string
 }
+
+const T = true
+const F = false
 
 const plans: Plan[] = [
   {
     name: 'Basic',
     price: '$1,500',
     payment: 'Upfront + 11% of annual package (1st year)',
-    badge: '',
-    features: [
-      'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
-      'Dedicated Recruiter',
-      'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
-      'LinkedIn Optimization',
-      'Resume Promotion Service',
-      'Email Correspondence Assistance',
-    ],
-    guarantees: [
-      'Money-Back Guarantee',
-      '120 Working Days Job Guarantee',
-      '60% Refund on Upfront Amount',
-    ],
+    //         Resume  RUS   8mo   Recr  Tech  TQC   JDC   Assess Linked Promo Email
+    features: [T, T, T, T, F, F, F, F, T, F, F],
+    guarantees: [F, F, F],
   },
   {
     name: 'Advance',
-    price: 'Custom',
+    price: '$2,500',
     payment: 'Upfront + 10% of annual package (1st year)',
     featured: true,
     badge: 'Most Popular',
-    features: [
-      'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
-      'Dedicated Recruiter',
-      'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
-      'LinkedIn Optimization',
-      'Resume Promotion Service',
-      'Email Correspondence Assistance',
-    ],
-    guarantees: [
-      'Money-Back Guarantee',
-      '120 Working Days Job Guarantee',
-      '60% Refund on Upfront Amount',
-    ],
+    features: [T, T, T, T, T, T, T, T, T, T, T],
+    guarantees: [F, F, F],
   },
   {
     name: 'Premium',
-    price: 'Custom',
+    price: '$3,500',
     payment: 'Upfront + 9% of annual package (1st year)',
-    badge: '',
-    features: [
-      'Resume Preparation',
-      'Resume Understanding Session (1:1)',
-      '8 Months of Marketing',
-      'Dedicated Recruiter',
-      'Technical Training',
-      'TOC Session',
-      'JDC Session',
-      'Assessment Support in Coding',
-      'LinkedIn Optimization',
-      'Resume Promotion Service',
-      'Email Correspondence Assistance',
-    ],
-    guarantees: [
-      'Money-Back Guarantee',
-      '120 Working Days Job Guarantee',
-      '60% Refund on Upfront Amount',
-    ],
+    features: [T, T, T, T, T, T, T, T, T, T, T],
+    guarantees: [T, T, T],
   },
 ]
 
@@ -111,6 +91,46 @@ function CornerTicks() {
         </span>
       ))}
     </>
+  )
+}
+
+/** One feature/guarantee row: ✓ when included, ✗ (dimmed) when not. */
+function PlanRow({
+  label,
+  included,
+  featured,
+  guarantee,
+}: {
+  label: string
+  included: boolean
+  featured?: boolean
+  guarantee?: boolean
+}) {
+  if (!included) {
+    return (
+      <li className="flex items-start gap-3 text-sm text-fg-3/55">
+        <X className="mt-0.5 size-4 shrink-0 text-fg-3/45" aria-hidden="true" />
+        <span>{label}</span>
+        <span className="sr-only">— not included</span>
+      </li>
+    )
+  }
+  const Icon = guarantee ? ShieldCheck : Check
+  return (
+    <li
+      className={`flex items-start gap-3 text-sm ${
+        guarantee ? 'font-medium text-fg' : 'text-fg-2'
+      }`}
+    >
+      <Icon
+        className={`mt-0.5 size-4 shrink-0 ${
+          guarantee || featured ? 'text-glow' : 'text-brand'
+        }`}
+        aria-hidden="true"
+      />
+      <span>{label}</span>
+      <span className="sr-only">— included</span>
+    </li>
   )
 }
 
@@ -157,26 +177,18 @@ function PlanCard({ plan }: { plan: Plan }) {
       </div>
 
       <ul className="relative mt-8 flex-1 space-y-3 border-t border-line-2 pt-7">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-sm text-fg-2">
-            <Check className={`mt-0.5 size-4 shrink-0 ${plan.featured ? 'text-glow' : 'text-brand'}`} />
-            {f}
-          </li>
+        {FEATURES.map((label, i) => (
+          <PlanRow key={label} label={label} included={plan.features[i]} featured={plan.featured} />
         ))}
 
-        {plan.guarantees && (
-          <li className="pt-3" aria-hidden="true">
-            <span className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-glow">
-              <span className="h-px flex-1 bg-gradient-to-r from-glow/50 to-transparent" />
-              Guarantees
-            </span>
-          </li>
-        )}
-        {plan.guarantees?.map((g) => (
-          <li key={g} className="flex items-start gap-3 text-sm font-medium text-fg">
-            <ShieldCheck className="mt-0.5 size-4 shrink-0 text-glow" />
-            {g}
-          </li>
+        <li className="pt-3" aria-hidden="true">
+          <span className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-glow">
+            <span className="h-px flex-1 bg-gradient-to-r from-glow/50 to-transparent" />
+            Guarantees
+          </span>
+        </li>
+        {GUARANTEES.map((label, i) => (
+          <PlanRow key={label} label={label} included={plan.guarantees[i]} guarantee />
         ))}
       </ul>
 

@@ -1,8 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import { site } from '@/content/site'
+
+let heroVisible = true
 
 /**
  * WhatsApp floating action button — bottom-right corner.
@@ -13,30 +15,38 @@ import { site } from '@/content/site'
  */
 export function WhatsAppFloat() {
   const pathname = usePathname()
-  const [visible, setVisible] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const phone = site.phone.replace(/\s/g, '').replace('+', '')
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent('Hi, I would like to know more about InfoTech Placement LLC.')}`
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  )
 
-  useEffect(() => {
-    const hero = document.getElementById('site-hero')
-    if (!hero) {
-      setVisible(true)
-      return
-    }
-
-    setVisible(false)
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0 }
-    )
-    observer.observe(hero)
-    return () => observer.disconnect()
-  }, [pathname])
+  const visible = useSyncExternalStore(
+    (callback) => {
+      heroVisible = true
+      const hero = document.getElementById('site-hero')
+      if (!hero) {
+        heroVisible = false
+        callback()
+        return () => {}
+      }
+      heroVisible = false
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          heroVisible = !entry.isIntersecting
+          callback()
+        },
+        { threshold: 0 }
+      )
+      observer.observe(hero)
+      return () => observer.disconnect()
+    },
+    () => heroVisible,
+    () => true,
+  )
 
   if (!mounted || !visible) return null
 

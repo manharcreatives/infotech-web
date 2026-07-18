@@ -204,9 +204,10 @@ export function Chatbot() {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300)
       clearBubbleTimeout()
-      setActiveBubble(null)
     }
   }, [isOpen, clearBubbleTimeout])
+
+  const effectiveActiveBubble = isOpen ? null : activeBubble
 
   /* Rather than sitting fixed in one corner forever, the bot surfaces as a
      small dismissible bubble next to whichever content section the visitor
@@ -305,12 +306,12 @@ export function Chatbot() {
     <>
       {/* Contextual bubble — surfaces next to whichever section the visitor
           is currently reading instead of sitting fixed in one corner. */}
-      {activeBubble && !isOpen && !isDismissed && (
+      {effectiveActiveBubble && !isOpen && !isDismissed && (
         <div
-          key={activeBubble.key}
-          style={{ top: `${activeBubble.top}%` }}
+          key={effectiveActiveBubble.key}
+          style={{ top: `${effectiveActiveBubble.top}%` }}
           className={`chat-bubble-in fixed z-[100] flex items-center gap-3 ${
-            activeBubble.side === 'left' ? 'left-4 sm:left-6' : 'right-4 flex-row-reverse sm:right-6'
+            effectiveActiveBubble.side === 'left' ? 'left-4 sm:left-6' : 'right-4 flex-row-reverse sm:right-6'
           }`}
         >
           <div className="flex items-center gap-2 rounded-2xl border border-line bg-surface px-4 py-3.5 shadow-lg shadow-black/30">

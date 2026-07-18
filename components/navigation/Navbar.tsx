@@ -77,14 +77,14 @@ export function Navbar() {
       >
         <div
           className={cn(
-            'flex w-full items-center justify-between rounded-full px-5 py-4 transition-all duration-500',
+            'flex w-full items-center justify-between rounded-full px-5 py-1.5 md:py-2.5 transition-all duration-500',
             scrolled ? 'glass shadow-[0_16px_48px_-16px_rgba(0,0,0,0.7)]' : ''
           )}
         >
           <div ref={logoRef} className="[transform-style:preserve-3d]">
             <TransitionLink
               href="/"
-              className="relative block h-14 w-[168px]"
+              className="relative block h-10 w-[168px] md:h-14"
               aria-label="InfoTech Placement LLC — home"
             >
               {/* Dark surface (top of page / over hero video) → white-font logo */}
@@ -93,8 +93,8 @@ export function Navbar() {
                 alt="InfoTech Placement LLC"
                 width={180}
                 height={60}
-                className={cn(
-                  'absolute inset-0 h-14 w-auto transition-opacity duration-500',
+                  className={cn(
+                  'absolute inset-0 h-10 w-auto md:h-14 transition-opacity duration-500',
                   scrolled ? 'opacity-0' : 'opacity-100'
                 )}
                 priority
@@ -106,8 +106,8 @@ export function Navbar() {
                 aria-hidden="true"
                 width={180}
                 height={60}
-                className={cn(
-                  'absolute inset-0 h-14 w-auto transition-opacity duration-500',
+                  className={cn(
+                  'absolute inset-0 h-10 w-auto md:h-14 transition-opacity duration-500',
                   scrolled ? 'opacity-100' : 'opacity-0'
                 )}
               />
@@ -139,7 +139,7 @@ export function Navbar() {
             <Magnetic>
               <TransitionLink
                 href="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-brand-hover"
+                className="group inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2 md:py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-brand-hover"
               >
                 Book a Consultation
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
@@ -152,7 +152,7 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="relative z-120 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+            className="relative z-120 flex h-8 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
           >
             <span
               className={cn(
