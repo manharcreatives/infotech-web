@@ -1,0 +1,79 @@
+// Google Apps Script — Contact Form (InfoTech Placement)
+// 1. Form ka data leta hai (JSON POST)
+// 2. Sheet me row append karta hai
+// 3. Resume ko Google Drive me save karta hai
+// 4. info@ + paresh dono ko email bhejta hai
+//
+// SETUP:
+// 1. Google Sheet kholo > Extensions > Apps Script
+// 2. Ye code paste karo > Save
+// 3. Deploy > Web App > Execute as Me > Access: Anyone > Deploy
+// 4. Web App URL copy karke .env.local me NEXT_PUBLIC_APPS_SCRIPT_URL me daalo
+// 5. Neeche FOLDER_ID apni Google Drive folder ka ID daalo (resume ke liye)
+
+const TO_EMAILS = ["info@infotechplacement.com", "pareshsuthar0711@gmail.com"];
+const SHEET_NAME = "Sheet1";
+const FOLDER_ID = "1CJDmXD7UuGmQmvSN7u51NiHguFCxmFRl";
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+
+    // Handle resume — save to Drive with clean naming
+    var resumeLink = "";
+    if (data.resumeBase64 && data.resumeMime) {
+      var clean = function (str) {
+        return str.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_-]/g, "");
+      };
+      var safeName = clean(data.fullName) + "_" + clean(data.targetRole || "resume") + "_" + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
+      var ext = data.resumeName && data.resumeName.includes(".") ? "." + data.resumeName.split(".").pop() : ".pdf";
+      var fileName = safeName + ext;
+
+      var blob = Utilities.newBlob(
+        Utilities.base64Decode(data.resumeBase64),
+        data.resumeMime,
+        fileName
+      );
+      var folder = DriveApp.getFolderById(FOLDER_ID);
+      var file = folder.createFile(blob);
+      resumeLink = file.getUrl();
+    }
+
+    // Append row to sheet
+    sheet.appendRow([
+      new Date(),                 // A: Timestamp
+      data.fullName,              // B: Full Name
+      data.email,                 // C: Email
+      data.phone,                 // D: Phone
+      data.targetRole || "",      // E: Target Job Title
+      data.message || "",         // F: Message
+      resumeLink || "Not provided" // G: Resume Link
+    ]);
+
+    // Email notification to BOTH accounts
+    var subject = "New Enquiry from " + data.fullName;
+    var body =
+      "New Contact Form Submission — InfoTech Placement\n\n" +
+      "Name: " + data.fullName + "\n" +
+      "Email: " + data.email + "\n" +
+      "Phone: " + data.phone + "\n" +
+      "Target Job: " + (data.targetRole || "N/A") + "\n" +
+      "Message: " + (data.message || "N/A") + "\n" +
+      "Resume: " + (resumeLink || "Not provided") + "\n\n" +
+      "Submitted: " + new Date().toLocaleString();
+
+    for (var i = 0; i < TO_EMAILS.length; i++) {
+      MailApp.sendEmail(TO_EMAILS[i], subject, body);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: String(err) }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

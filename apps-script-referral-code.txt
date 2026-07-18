@@ -1,0 +1,67 @@
+// Google Apps Script — Referral Form (InfoTech Placement)
+// 1. Referral form ka data leta hai (JSON POST)
+// 2. Sheet me row append karta hai
+// 3. info@ + paresh dono ko email bhejta hai
+// 4. Phone number +91 ke saath Sheet mein save hota hai
+//
+// SETUP:
+// 1. Naya Google Sheet kholo > Extensions > Apps Script
+// 2. Ye code paste karo > Save
+// 3. Deploy > Web App > Execute as Me > Access: Anyone > Deploy
+// 4. Web App URL copy karke .env.local me NEXT_PUBLIC_REFERRAL_APPS_SCRIPT_URL me daalo
+
+const TO_EMAILS = ["info@infotechplacement.com", "pareshsuthar0711@gmail.com"];
+const SHEET_NAME = "Sheet1";
+const PHONE_COLUMN = 7;  // G column — phone number column
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+
+    // Append row
+    sheet.appendRow([
+      new Date(),                          // A: Timestamp
+      data.type || "referral",             // B: Type
+      data.referrerName,                   // C: Referrer Name
+      data.referrerEmail,                  // D: Referrer Email
+      data.candidateName,                  // E: Candidate Name
+      data.candidateEmail,                 // F: Candidate Email
+      data.candidatePhone || "Not provided", // G: Candidate Phone
+      data.candidateRole || "Not specified", // H: Target Role
+      data.notes || "N/A"                  // I: Notes
+    ]);
+
+    // Force phone cell as plain text so + sign stays
+    var lastRow = sheet.getLastRow();
+    var phoneCell = sheet.getRange(lastRow, PHONE_COLUMN);
+    phoneCell.setNumberFormat('@');
+    phoneCell.setValue(data.candidatePhone || "Not provided");
+
+    // Email notification to BOTH accounts
+    var subject = "New Referral from " + data.referrerName;
+    var body =
+      "New Referral Submission — InfoTech Placement\n\n" +
+      "Referrer Name: " + data.referrerName + "\n" +
+      "Referrer Email: " + data.referrerEmail + "\n" +
+      "Candidate Name: " + data.candidateName + "\n" +
+      "Candidate Email: " + data.candidateEmail + "\n" +
+      "Candidate Phone: " + (data.candidatePhone || "Not provided") + "\n" +
+      "Target Role: " + (data.candidateRole || "Not specified") + "\n" +
+      "Notes: " + (data.notes || "N/A") + "\n\n" +
+      "Submitted: " + new Date().toLocaleString();
+
+    for (var i = 0; i < TO_EMAILS.length; i++) {
+      MailApp.sendEmail(TO_EMAILS[i], subject, body);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: String(err) }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

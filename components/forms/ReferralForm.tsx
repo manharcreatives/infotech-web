@@ -1,27 +1,70 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { site } from '@/content/site'
 import { Button } from '@/components/ui/Button'
+import { cleanPhoneNumber } from '@/lib/utils'
 
-type Status = 'idle' | 'sending' | 'sent'
+type Status = 'idle' | 'sending' | 'sent' | 'error'
 
-/**
- * Refer & Earn lead-capture form. Mirrors ContactForm's numbered
- * ledger field system so both forms feel like one product.
- *
- * TODO (integration, SRS §6.3): POST to /api/refer → business email
- * notification + Google Sheets row + anti-spam. Blocked on client's
- * business email (SRS B-7) — same integration gap as ContactForm.
- */
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_REFERRAL_APPS_SCRIPT_URL ?? ''
+
 export function ReferralForm() {
   const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!APPS_SCRIPT_URL) {
+      setErrorMsg('Form service not configured. Please try again later.')
+      setStatus('error')
+      return
+    }
+
     setStatus('sending')
-    await new Promise((r) => setTimeout(r, 900))
-    setStatus('sent')
+    setErrorMsg('')
+
+    const formData = new FormData(e.currentTarget)
+
+    const referrerName = (formData.get('referrerName') as string).trim()
+    const referrerEmail = (formData.get('referrerEmail') as string).trim()
+    const candidateName = (formData.get('candidateName') as string).trim()
+    const candidateEmail = (formData.get('candidateEmail') as string).trim()
+    const candidatePhone = cleanPhoneNumber((formData.get('candidatePhone') as string).trim())
+    const candidateRole = (formData.get('candidateRole') as string).trim()
+    const notes = (formData.get('notes') as string).trim()
+
+    const payload = {
+      type: 'referral',
+      referrerName,
+      referrerEmail,
+      candidateName,
+      candidateEmail,
+      candidatePhone,
+      candidateRole,
+      notes,
+    }
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      })
+
+      const result = (await res.json()) as { success: boolean; error?: string }
+
+      if (result.success) {
+        setStatus('sent')
+        formRef.current?.reset()
+      } else {
+        setErrorMsg(result.error || 'Something went wrong. Please try again.')
+        setStatus('error')
+      }
+    } catch {
+      setErrorMsg('Network error. Please check your connection and try again.')
+      setStatus('error')
+    }
   }
 
   if (status === 'sent') {
@@ -43,7 +86,13 @@ export function ReferralForm() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="space-y-9">
+      {status === 'error' && errorMsg && (
+        <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          {errorMsg}
+        </div>
+      )}
+
+      <form ref={formRef} onSubmit={onSubmit} className="space-y-9">
         <p className="text-xs uppercase tracking-[0.3em] text-glow">Your details</p>
         <div className="grid gap-9 sm:grid-cols-2">
           <Field index="01" label="Your full name" name="referrerName" type="text" required />
