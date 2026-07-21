@@ -19,7 +19,6 @@ import { Button } from '@/components/ui/Button'
 const FEATURES = [
   'Resume Preparation',
   'Resume Understanding Session (1:1)',
-  '8 Months of Marketing',
   'Dedicated Recruiter',
   'Technical Training',
   'TQC Session',
@@ -56,8 +55,8 @@ const plans: Plan[] = [
     name: 'Basic',
     price: '$1,500',
     payment: 'Upfront + 11% of annual package (1st year)',
-    //         Resume  RUS   8mo   Recr  Tech  TQC   JDC   Assess Linked Promo Email
-    features: [T, T, T, T, F, F, F, F, T, F, F],
+    //         Resume  RUS   Recr  Tech  TQC   JDC   Assess Linked Promo Email
+    features: [T, T, T, F, F, F, F, T, F, F],
     guarantees: [F, F, F],
   },
   {
@@ -66,14 +65,14 @@ const plans: Plan[] = [
     payment: 'Upfront + 10% of annual package (1st year)',
     featured: true,
     badge: 'Most Popular',
-    features: [T, T, T, T, T, T, T, T, T, T, T],
+    features: [T, T, T, T, T, T, T, T, T, T],
     guarantees: [F, F, F],
   },
   {
     name: 'Premium',
     price: '$3,500',
     payment: 'Upfront + 9% of annual package (1st year)',
-    features: [T, T, T, T, T, T, T, T, T, T, T],
+    features: [T, T, T, T, T, T, T, T, T, T],
     guarantees: [T, T, T],
   },
 ]
