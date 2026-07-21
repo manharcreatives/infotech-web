@@ -9,6 +9,9 @@ import { Footer } from '@/components/navigation/Footer'
 import { WhatsAppFloat } from '@/components/global/WhatsAppFloat'
 import { Chatbot } from '@/components/global/Chatbot'
 import { ScrollReveal } from '@/components/global/ScrollReveal'
+import { GoogleAnalytics } from '@/features/analytics/GoogleAnalytics'
+import { GoogleTagManager, GoogleTagManagerNoScript } from '@/features/analytics/GoogleTagManager'
+import { AnalyticsTracker } from '@/features/analytics/AnalyticsTracker'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -166,8 +169,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        <GoogleTagManager />
+        <GoogleAnalytics />
+      </head>
       <body className="bg-ink text-fg">
+        <GoogleTagManagerNoScript />
+        <AnalyticsTracker />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

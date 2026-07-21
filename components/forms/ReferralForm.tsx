@@ -1,36 +1,87 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { site } from '@/content/site'
 import { Button } from '@/components/ui/Button'
+import { cleanPhoneNumber } from '@/lib/utils'
 
-type Status = 'idle' | 'sending' | 'sent'
+type Status = 'idle' | 'sending' | 'sent' | 'error'
 
-/**
- * Refer & Earn lead-capture form. Mirrors ContactForm's numbered
- * ledger field system so both forms feel like one product.
- *
- * TODO (integration, SRS §6.3): POST to /api/refer → business email
- * notification + Google Sheets row + anti-spam. Blocked on client's
- * business email (SRS B-7) — same integration gap as ContactForm.
- */
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_REFERRAL_APPS_SCRIPT_URL ?? ''
+
 export function ReferralForm() {
   const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!APPS_SCRIPT_URL) {
+      setErrorMsg('Form service not configured. Please try again later.')
+      setStatus('error')
+      return
+    }
+
     setStatus('sending')
-    await new Promise((r) => setTimeout(r, 900))
-    setStatus('sent')
+    setErrorMsg('')
+
+    const formData = new FormData(e.currentTarget)
+
+    const referrerName = (formData.get('referrerName') as string).trim()
+    const referrerEmail = (formData.get('referrerEmail') as string).trim()
+    const candidateName = (formData.get('candidateName') as string).trim()
+    const candidateEmail = (formData.get('candidateEmail') as string).trim()
+    const candidatePhone = cleanPhoneNumber((formData.get('candidatePhone') as string).trim())
+    const candidateRole = (formData.get('candidateRole') as string).trim()
+    const notes = (formData.get('notes') as string).trim()
+
+    const payload = {
+      type: 'referral',
+      referrerName,
+      referrerEmail,
+      candidateName,
+      candidateEmail,
+      candidatePhone,
+      candidateRole,
+      notes,
+    }
+
+    try {
+      const startedAt = Date.now()
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      })
+
+      const result = (await res.json()) as { success: boolean; error?: string }
+      const elapsed = Date.now() - startedAt
+      const remaining = Math.max(0, 1500 - elapsed)
+
+      if (result.success) {
+        await new Promise((r) => setTimeout(r, remaining))
+        setStatus('sent')
+        formRef.current?.reset()
+      } else {
+        await new Promise((r) => setTimeout(r, remaining))
+        setErrorMsg(result.error || 'Something went wrong. Please try again.')
+        setStatus('error')
+      }
+    } catch {
+      await new Promise((r) => setTimeout(r, 1500))
+      setErrorMsg('Network error. Please check your connection and try again.')
+      setStatus('error')
+    }
   }
 
   if (status === 'sent') {
     return (
-      <div className="glass flex min-h-80 flex-col items-center justify-center rounded-2xl p-10 text-center">
-        <span className="grid size-14 place-items-center rounded-full bg-success/15 text-2xl">
-          ✓
+      <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-line bg-surface/30 p-10 text-center backdrop-blur-sm">
+        <span className="success-check grid size-16 place-items-center rounded-full bg-success shadow-[0_0_48px_8px_rgba(34,197,94,0.45)]">
+          <svg className="size-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </span>
-        <p className="mt-6 font-display text-2xl font-semibold tracking-tight">
+        <p className="mt-6 font-display text-2xl font-semibold tracking-tight text-fg">
           Referral received.
         </p>
         <p className="mt-2 max-w-xs text-sm text-fg-3">
@@ -42,8 +93,25 @@ export function ReferralForm() {
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit} className="space-y-9">
+    <div className="relative">
+      {status === 'sending' && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-2xl bg-ink/80 backdrop-blur-sm">
+          <div className="spinner-loader">
+            <div className="circle" />
+            <div className="circle" />
+            <div className="circle" />
+            <div className="circle" />
+          </div>
+          <p className="mt-6 text-sm tracking-[0.2em] text-fg-3 uppercase">Sending…</p>
+        </div>
+      )}
+      {status === 'error' && errorMsg && (
+        <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          {errorMsg}
+        </div>
+      )}
+
+      <form ref={formRef} onSubmit={onSubmit} className="space-y-9">
         <p className="text-xs uppercase tracking-[0.3em] text-glow">Your details</p>
         <div className="grid gap-9 sm:grid-cols-2">
           <Field index="01" label="Your full name" name="referrerName" type="text" required />
@@ -86,7 +154,7 @@ export function ReferralForm() {
 
         <div className="flex flex-wrap items-center gap-6 pt-2">
           <Button type="submit">
-            {status === 'sending' ? 'Sending…' : 'Submit referral'}
+            Submit referral
           </Button>
           <p className="max-w-xs text-xs leading-relaxed text-fg-3">
             Please make sure you have their permission before sharing

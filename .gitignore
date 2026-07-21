@@ -23,3 +23,6 @@ next-env.d.ts
 .DS_Store
 Thumbs.db
 npm-debug.log*
+
+# session notes (local reference)
+SESSION_NOTES.md
