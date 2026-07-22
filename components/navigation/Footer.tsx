@@ -147,6 +147,16 @@ export function Footer() {
             ))}
           </div>
           <p>{site.tagline}</p>
+          <p>Created by{' '}
+            <a
+              href="https://manharcreatives.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-sweep hover:text-fg-2"
+            >
+              Manhar Creatives
+            </a>
+          </p>
         </div>
       </div>
 
