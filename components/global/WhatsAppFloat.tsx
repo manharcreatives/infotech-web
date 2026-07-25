@@ -4,10 +4,10 @@ import { useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import { site } from '@/content/site'
 
-let heroVisible = true
+let heroScrolled = false
 
 /**
- * WhatsApp floating action button — bottom-right corner.
+ * WhatsApp floating action button — bottom-left corner.
  * Hidden while the page's hero (#site-hero) is in view on every page —
  * it would otherwise sit on top of hero content/CTAs — and fades in once
  * the visitor scrolls past it. Includes pulse ring animation, tooltip on
@@ -15,45 +15,34 @@ let heroVisible = true
  */
 export function WhatsAppFloat() {
   const pathname = usePathname()
-  const phone = site.phone.replace(/\s/g, '').replace('+', '')
+  const phone = site.whatsapp.replace(/\s/g, '').replace('+', '')
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent('Hi, I would like to know more about InfoTech Placement LLC.')}`
-
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  )
 
   const visible = useSyncExternalStore(
     (callback) => {
-      heroVisible = true
-      const hero = document.getElementById('site-hero')
-      if (!hero) {
-        heroVisible = false
+      const check = () => {
+        const hero = document.getElementById('site-hero')
+        if (!hero) {
+          heroScrolled = true
+        } else {
+          heroScrolled = hero.getBoundingClientRect().bottom <= 0
+        }
         callback()
-        return () => {}
       }
-      heroVisible = false
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          heroVisible = !entry.isIntersecting
-          callback()
-        },
-        { threshold: 0 }
-      )
-      observer.observe(hero)
-      return () => observer.disconnect()
+      check()
+      window.addEventListener('scroll', check, { passive: true })
+      return () => window.removeEventListener('scroll', check)
     },
-    () => heroVisible,
-    () => true,
+    () => heroScrolled,
+    () => false,
   )
 
-  if (!mounted || !visible) return null
+  if (!visible) return null
 
   return (
     <div className="floating-safe-bottom fixed right-4 z-[100] flex flex-col items-end gap-3 sm:right-6">
       {/* Desktop tooltip */}
-      <span className="pointer-events-none hidden rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-gray-800 shadow-lg sm:block opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+      <span className="pointer-events-none hidden rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-gray-800 shadow-lg sm:block opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 absolute right-full mr-3 whitespace-nowrap">
         Chat on WhatsApp
       </span>
 

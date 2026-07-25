@@ -34,6 +34,7 @@ export const site = {
   // [PENDING: SRS B-7] business email + phone to be confirmed by client
   email: 'info@infotechplacement.com',
   phone: '+1 240 212 5743',
+  whatsapp: '+91 884 919 4530',
   linkedin: 'https://www.linkedin.com/company/infotech-placement/',
   address: '30 Gould St STE 300, Sheridan, WY 82801',
   coordinates: { lat: 44.7978, lng: -106.9574 },
