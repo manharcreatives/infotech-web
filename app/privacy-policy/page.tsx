@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * Plain-English privacy policy per SRS §8.1.....
+ * Plain-English privacy policy per SRS §8.1
  * LEGAL-REVIEW DISCLAIMER IS MANDATORY: do not remove (project scope
  * excludes formal legal review; client responsibility per SRS §11).
  */
