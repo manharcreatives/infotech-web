@@ -115,7 +115,7 @@ export function HeroSection() {
       {/* --- Backdrop video (auto-loop) + overlay; still image as poster
           so the frame is never empty while the video buffers --- */}
       <video
-        src="https://res.cloudinary.com/rc8wd02c/video/upload/v1784109584/infotech_2nd_video_ejryeb.mp4"
+        src="https://res.cloudinary.com/mchtr6ii/video/upload/v1785423391/infotech_2nd_video_ejryeb_dn3w7r.mp4"
         autoPlay
         loop
         muted
